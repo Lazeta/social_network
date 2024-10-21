@@ -21,31 +21,3 @@ const MyPost = (props) => {
 }
 
 export default MyPost;
-
-
-// let users = {
-//     user1: {
-//         name: 'Vova',
-//         age: '26',
-//     },
-//     user2: {
-//         name: 'Misha',
-//         age: '35',
-//     },
-//     user3: {
-//         name: 'Vlad',
-//         age: '50',
-//     },
-//     user4: {
-//         name: 'Sanya',
-//         age: '16',
-//     },
-//     user5: {
-//         name: 'Kolya',
-//         age: '20',
-//     },
-//     user6: {
-//         name: 'Leonid',
-//         age: '45',
-//     },
-// }
