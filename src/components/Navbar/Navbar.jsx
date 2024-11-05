@@ -1,24 +1,26 @@
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
-const Navbar = (props) => {
+const Navbar = () => {
+    let navigatorData = [
+        {id: 0, navigate: '/profile', title: 'Profile'},
+        {id: 0, navigate: '/dialogs', title: 'Messages'},
+        {id: 0, navigate: '/news', title: 'News'},
+        {id: 0, navigate: '/music', title: 'Music'},
+        {id: 0, navigate: '/settings', title: 'Settings'},
+    ]
+
+    let navigateItems = navigatorData.map(item => <div className={s.item} key={item.id}>
+        <NavLink
+            to={item.navigate}
+            className={({isActive}) => isActive ? s.active : ""}>
+            {item.title}
+        </NavLink>
+    </div>)
+
     return (
         <nav className={s.nav}>
-            <div className={s.item}>
-                <NavLink to="/profile" className={({ isActive }) => (isActive ? s.active : "")}>Profile</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/dialogs" className={({ isActive}) => (isActive ? s.active : "")}>Messages</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/news" className={({ isActive}) => (isActive ? s.active : "")}>News</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/music" className={({ isActive}) => (isActive ? s.active : "")}>Music</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/settings" className={({ isActive}) => (isActive ? s.active : "")}>Settings</NavLink>
-            </div>
+            { navigateItems }
         </nav>
     )
 }
