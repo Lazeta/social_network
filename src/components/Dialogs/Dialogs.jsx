@@ -3,11 +3,11 @@ import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
-const Dialogs = ({dialogsData, messagesData}) => {
+const Dialogs = (props) => {
 
 
-    let dialogsElements = dialogsData.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>)
-    let messageElements = messagesData.map(m => <Message message={m.message} key={m.id} id={m.id}/>)
+    let dialogsElements = props.state.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name} src={d.src}/>)
+    let messagesElements = props.state.messages.map(m => <Message key={m.id} id={m.id} message={m.message} />)
 
 
     return (<div className={s.dialogs}>
@@ -16,7 +16,7 @@ const Dialogs = ({dialogsData, messagesData}) => {
                 { dialogsElements }
             </div>
             <div className={s.messages}>
-                { messageElements }
+                { messagesElements }
             </div>
         </div>
     </div>)

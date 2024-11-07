@@ -13,13 +13,36 @@
 }
 
 .dialog {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
+.dialog img {
+    width: 25px;
+    height: 25px;
+}
+
+.dialog a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dialogItem {
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+}
+
+.Icon img {
+    border-radius: 50%;
 }
 
 .messages {
-    padding: 10px;
+    display: grid;
+    gap: 10px;
 }
 
 .message {
-
+    /* Стили для сообщений, если нужно */
 }

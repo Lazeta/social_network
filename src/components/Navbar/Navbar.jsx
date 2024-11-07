@@ -4,10 +4,10 @@ import {NavLink} from "react-router-dom";
 const Navbar = () => {
     let navigatorData = [
         {id: 0, navigate: '/profile', title: 'Profile'},
-        {id: 0, navigate: '/dialogs', title: 'Messages'},
-        {id: 0, navigate: '/news', title: 'News'},
-        {id: 0, navigate: '/music', title: 'Music'},
-        {id: 0, navigate: '/settings', title: 'Settings'},
+        {id: 1, navigate: '/dialogs', title: 'Messages'},
+        {id: 2, navigate: '/news', title: 'News'},
+        {id: 3, navigate: '/music', title: 'Music'},
+        {id: 4, navigate: '/settings', title: 'Settings'},
     ]
 
     let navigateItems = navigatorData.map(item => <div className={s.item} key={item.id}>
