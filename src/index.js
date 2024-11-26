@@ -17,7 +17,7 @@ let rerenderEntireTree = (state) => {
                 store={store}
             />
         </React.StrictMode>
-    )
+    );
 }
 
 rerenderEntireTree(store.getState());

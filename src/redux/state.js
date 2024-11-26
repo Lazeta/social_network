@@ -62,7 +62,7 @@ let store = {
                     p.id)) + 1 : 1;
             let newPost = {
                 id: newPostId,
-                message: this._state.profilePage.newPostText,
+                // message: this._state.profilePage.newPostText,
                 message: action.postText,
                 likesCount: 0,
             }
@@ -76,9 +76,11 @@ let store = {
             this._state.dialogsPage.newMessageBody = action.body;
             this._callSubscriber(this._state);
         } else if (action.type === SEND_MESSAGE) {
+            let maxId = Math.max(...this._state.dialogsPage.messages.map(m => m.id));
+            let newId = maxId + 1;
             let body = this._state.dialogsPage.newMessageBody;
             this._state.dialogsPage.newMessageBody = "";
-            this._state.dialogsPage.messages.push({id: 7, message: body});
+            this._state.dialogsPage.messages.push({id: newId, message: body});
             this._callSubscriber(this._state);
         }
     }
@@ -88,9 +90,9 @@ export const addPostActionCreator = () => ({ type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) =>
     ({ type: UPDATE_NEW_POST_TEXT, newText: text, })
 
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
+export const sendMessageCreator = (body) => ({ type: SEND_MESSAGE, body })
 export const updateNewMessageBodyCreator = (body) =>
-    ({ type: UPDATE_NEW_MESSAGE_BODY, newText: body, })
+    ({ type: UPDATE_NEW_MESSAGE_BODY, body })
 
 export default store;
 window.store = store;
