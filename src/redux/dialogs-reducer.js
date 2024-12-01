@@ -30,22 +30,22 @@ let initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    let stateCopy = {...state, messages: [...state.messages]};
-    // let stateCopy = {...state};
-
     switch(action.type) {
         case UPDATE_NEW_MESSAGE_BODY: {
-            stateCopy.newMessageBody = action.body;
-            return stateCopy;
+            return {
+                ...state,
+                newMessageBody: action.body
+            }
         }
         case SEND_MESSAGE: {
-            let maxId = Math.max(...stateCopy.messages.map(m => m.id));
-            let newId = maxId + 1;
-            
             let body = state.newMessageBody;
-            stateCopy.newMessageBody = "";
-            stateCopy.messages.push({id: newId, message: body});
-            return stateCopy;
+            let maxId = state.messages.length > 0 ? Math.max(...state.messages.map(m => m.id)) : 0;
+            let newId = maxId + 1;
+            return {
+                ...state, 
+                messages: [...state.messages, {id: newId, message: body}], 
+                newMessageBody: "",
+            }
         }
         default: {
             return state;
