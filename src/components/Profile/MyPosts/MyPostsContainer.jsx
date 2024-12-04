@@ -23,33 +23,3 @@ const mapDispatchToProps = (dispatch) => {
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;
-
-
-
-
-
-
-
-
-
-
-
-
-// const MyPostsContainer = () => {
-//     return <StoreContext.Consumer>
-//         {(store) => {
-//             let onAddPost = () => {
-//                 store.dispatch(addPostActionCreator());
-//             }
-//             let onPostChange = (text) => {
-//                 store.dispatch(updateNewPostTextActionCreator(text));
-//             }
-
-//             return <MyPosts updateNewPostText={onPostChange}
-//                 addPost={onAddPost}
-//                 posts={store.getState().profilePage.posts}
-//                 newPostText={store.getState().profilePage.newPostText}
-//             />
-//         }}
-//     </StoreContext.Consumer>
-// }
