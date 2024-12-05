@@ -7,7 +7,8 @@ const Navbar = () => {
         {id: 1, navigate: '/dialogs', title: 'Messages'},
         {id: 2, navigate: '/news', title: 'News'},
         {id: 3, navigate: '/music', title: 'Music'},
-        {id: 4, navigate: '/settings', title: 'Settings'},
+        {id: 4, navigate: '/users', title: 'Users'},
+        {id: 5, navigate: '/settings', title: 'Settings'},
     ]
 
     let navigateItems = navigatorData.map(item => <div className={s.item} key={item.id}>
