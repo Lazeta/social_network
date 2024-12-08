@@ -1,42 +1,15 @@
 import React from 'react';
 import s from './Users.module.css'
-
+import axios from 'axios';
+import userPhoto from '../../assets/images/profile-logo.png';
+ 
 const Users = (props) => {
     if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                followed: false,
-                fullName: "Sasha",
-                photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-                status: "Hi, my name is Sasha",
-                location: { city: "Minsk", country: "Belarus" },
-            },
-            {
-                id: 2,
-                followed: true,
-                fullName: "Nikita",
-                photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-                status: "Hi, my name is Nikita",
-                location: { city: "Brest", country: "Belarus" },
-            },
-            {
-                id: 3,
-                followed: true,
-                fullName: "Leon",
-                photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-                status: "Hi, my name is Leon",
-                location: { city: "Moscow", country: "Russia" },
-            },
-            {
-                id: 4,
-                followed: false,
-                fullName: "Alexei",
-                photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-                status: "Hi, my name is Alexei",
-                location: { city: "New York", country: "USA" },
-            },
-        ])
+
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                props.setUsers(response.data.items)
+            })
     }
 
     return (
@@ -45,7 +18,7 @@ const Users = (props) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img className={s.userPhoto} src={u.photoUrl} alt={u.photoUrl} />
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto} alt={u.photoUrl} />
                         </div>
                         <div>
                             {u.followed
@@ -56,12 +29,12 @@ const Users = (props) => {
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{'u.location.country'}</div>
+                            <div>{'u.location.city'}</div>
                         </span>
                     </span>
                 </div>)

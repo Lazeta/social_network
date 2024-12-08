@@ -5,7 +5,7 @@ const SET_USERS = "SET-USERS";
 let initialState = {
   users: [
     // {
-    //   id: 1,
+    //   id: 1, 
     //   followed: false,
     //   fullName: "Sasha",
     //   photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
