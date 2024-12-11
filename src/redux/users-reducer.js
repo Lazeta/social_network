@@ -1,42 +1,15 @@
 const SUBSCRIBE = "SUBSCRIBE";
 const UNSUBSCRIBE = "UNSUBSCRIBE";
 const SET_USERS = "SET-USERS";
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
+const SET_USERS_TOTAL_COUNT = "SET-USERS-TOTAL-COUNT";
 
 let initialState = {
-  users: [
-    // {
-    //   id: 1, 
-    //   followed: false,
-    //   fullName: "Sasha",
-    //   photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-    //   status: "Hi, my name is Sasha",
-    //   location: { city: "Minsk", country: "Belarus" },
-    // },
-    // {
-    //   id: 2,
-    //   followed: true,
-    //   fullName: "Nikita",
-    //   photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-    //   status: "Hi, my name is Nikita",
-    //   location: { city: "Brest", country: "Belarus" },
-    // },
-    // {
-    //   id: 3,
-    //   followed: true,
-    //   fullName: "Leon",
-    //   photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-    //   status: "Hi, my name is Leon",
-    //   location: { city: "Moscow", country: "Russia" },
-    // },
-    // {
-    //   id: 4,
-    //   followed: false,
-    //   fullName: "Alexei",
-    //   photoUrl: "https://i.pinimg.com/564x/ac/00/f3/ac00f3c6e79e6cd3108b4ca3057df33d.jpg",
-    //   status: "Hi, my name is Alexei",
-    //   location: { city: "New York", country: "USA" },
-    // },
-  ],
+  users: [ ],
+  pageSize: 10,
+  totalUsersCount: 0,
+  currentPage: 2,
+
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -62,7 +35,14 @@ const usersReducer = (state = initialState, action) => {
       };
     }
     case SET_USERS: {
-      return {...state, users: [ ...state.users, ...action.users ]};
+      // return {...state, users: [ ...state.users, ...action.users ]};
+      return {...state, users: action.users };
+    }
+    case SET_CURRENT_PAGE: {
+      return {...state, currentPage: action.currentPage}
+    }
+    case SET_USERS_TOTAL_COUNT: {
+      return {...state, totalUsersCount: action.totalCount}
     }
 
     default:
@@ -73,5 +53,7 @@ const usersReducer = (state = initialState, action) => {
 export const subscribeAC = (userId) => ({ type: SUBSCRIBE, userId });
 export const unsubscribeAC = (userId) => ({ type: UNSUBSCRIBE, userId });
 export const setUsersAC = (users) => ({ type: SET_USERS, users });
+export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setUsersTotalCountAC = (totalCount) => ({ type: SET_USERS_TOTAL_COUNT, totalCount });
 
 export default usersReducer;
