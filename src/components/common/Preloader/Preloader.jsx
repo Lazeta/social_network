@@ -1,8 +1,8 @@
 import React from "react";
-import preloader from '../../../assets/preloader/amalie-steiness.gif';
+import preloader from '../../../assets/preloader/lg.gif';
 
 const Preloader = () => {
-    return <div style={{ backgroundColor: 'white' }}>
+    return <div>
         <img src={preloader} alt={`Not found gif ${preloader}`} />
     </div>
 };
