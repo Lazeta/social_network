@@ -11,16 +11,16 @@ let Users = (props) => {
 
     return <div>
         <div className={s.pages}>
-            {pages.map(p => {
-                return <span className={`${props.currentPage === p ? s.selectedPage : ''} ${s.pageNumber}`}
+            {pages.map((p, index) => {
+                return <span key={index}
                     onClick={(e) => { props.onPageChanged(p) }}
-                    key={p.id}
+                    className={`${props.currentPage === p ? s.selectedPage : ''} ${s.pageNumber}`}
                 >{p}</span>
             })}
         </div>
 
         {
-            props.users.map(u => <div key={u.id}>
+            props.users.map((u, index) => <div key={index}>
                 <span>
                     <div>
                         <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto} alt={u.photoUrl} />
@@ -46,10 +46,10 @@ let Users = (props) => {
         }
 
         <div className={s.pages}>
-            {pages.map(p => {
-                return <span className={`${props.currentPage === p ? s.selectedPage : ''} ${s.pageNumber}`}
-                    onClick={(e) => { props.onPageChanged(p) }}
-                    key={p.id}
+            {pages.map((p, index) => {
+                return <span key={index}
+                    onClick={() => { props.onPageChanged(p) }}
+                    className={`${props.currentPage === p ? s.selectedPage : ''} ${s.pageNumber}`}
                 >{p}</span>
             })}
         </div>
