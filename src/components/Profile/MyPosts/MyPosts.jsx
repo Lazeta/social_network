@@ -3,7 +3,6 @@ import Post from "./Post/Post";
 import React from "react";
 
 const MyPosts = (props) => {
-    debugger
     let postsElements = props.posts.map(p => {
         return <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>
     });
@@ -17,7 +16,7 @@ const MyPosts = (props) => {
         let text = newPostElement.current.value;
         props.updateNewPostText(text);
     }
-
+    
     return <div className={s.postsBlock}>
         <h3>"My posts"</h3>
         <div>

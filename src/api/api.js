@@ -10,5 +10,21 @@ export const usersAPI = {
     getUsers: (currentPage = 1, pageSize = 10) => {
         return axiosInstance.get(`users?page=${currentPage}&count=${pageSize}`)
         .then(response => response.data)
-    }
+    },
+    postUser: (id = null) => {
+        return axiosInstance.post(`follow/` + id)
+        .then(response => response.data)
+    },
+    deleteUser: (id = null) => {
+        return axiosInstance.delete(`follow/` + id)
+        .then(response => response.data)
+    },
+    getProfile: (userId = null) => {
+        return axiosInstance.get(`profile/` + userId)
+        .then(response => response.data)
+    },
+    getAuthUserData: (userId = null) => {
+        return axiosInstance.get(`auth/me`)
+        .then(response => response.data)
+    },
 }
