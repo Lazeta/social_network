@@ -1,5 +1,5 @@
 import React from "react";
-import s from './Users.module.css'
+import s from './Users.module.css';
 import userPhoto from '../../assets/images/profile-logo.png';
 import { NavLink } from "react-router-dom";
 import { usersAPI } from "../../api/api";
@@ -32,18 +32,22 @@ let Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id);
                                 usersAPI.deleteUser(u.id).then(data => {
                                         if (data.resultCode === 0) {
-                                            props.unsubscribe(u.id)
+                                            props.subscribe(u.id)
                                         }
+                                        props.toggleFollowingProgress(false, u.id)
                                     })
                             }}>Unsubscribe</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id);
                                 usersAPI.postUser(u.id).then(data => {
                                     if (data.resultCode === 0) {
-                                        props.subscribe(u.id)
+                                        props.subscribe(u.id);
                                     }
+                                    props.toggleFollowingProgress(false, u.id);
                                 })
                             }}>Subscribe</button>
                         }
