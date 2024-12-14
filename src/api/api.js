@@ -23,7 +23,7 @@ export const usersAPI = {
         return axiosInstance.get(`profile/` + userId)
         .then(response => response.data)
     },
-    getAuthUserData: (userId = null) => {
+    getAuthUserData: () => {
         return axiosInstance.get(`auth/me`)
         .then(response => response.data)
     },
