@@ -2,6 +2,7 @@ import React from "react";
 import s from './Users.module.css'
 import userPhoto from '../../assets/images/profile-logo.png';
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -31,8 +32,27 @@ let Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => { props.unsubscribe(u.id) }}>Unsubscribe</button>
-                            : <button onClick={() => { props.subscribe(u.id) }}>Subscribe</button>
+                            ? <button onClick={() => {
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                    withCredentials: true,
+                                    headers: { "API-KEY": '772fe908-10fe-45a5-97e7-06d1186f95e4'},
+                                })
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.unsubscribe(u.id)
+                                        }
+                                    })
+                            }}>Unsubscribe</button>
+                            : <button onClick={() => {
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                    withCredentials: true
+                                })
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.subscribe(u.id)
+                                        }
+                                    })
+                            }}>Subscribe</button>
                         }
                     </div>
                 </span>
