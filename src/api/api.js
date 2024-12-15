@@ -11,15 +11,15 @@ export const usersAPI = {
         return axiosInstance.get(`users?page=${currentPage}&count=${pageSize}`)
         .then(response => response.data)
     },
-    postUser: (id = null) => {
-        return axiosInstance.post(`follow/` + id)
+    postUser: (userId) => {
+        return axiosInstance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
         .then(response => response.data)
     },
-    deleteUser: (id = null) => {
-        return axiosInstance.delete(`follow/` + id)
+    deleteUser: (userId) => {
+        return axiosInstance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
         .then(response => response.data)
     },
-    getProfile: (userId = null) => {
+    getProfile: (userId) => {
         return axiosInstance.get(`profile/` + userId)
         .then(response => response.data)
     },

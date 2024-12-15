@@ -1,32 +1,17 @@
 import React from 'react';
 import { connect } from "react-redux";
-import {
-    setCurrentPage, setUsers, setTotalUsersCount, subscribe,
-    unsubscribe, toggleIsFetching,
-    toggleIsFollowingProgress
+import { subscribe, unsubscribe, getUsers, toggleIsFollowingProgress,
 } from "../../redux/users-reducer";
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
-import { usersAPI } from '../../api/api';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currenPage, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
+        this.props.getUsers(this.props.currenPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.toggleIsFetching(true)
-        this.props.setCurrentPage(pageNumber);
-
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-        })
+        this.props.getUsers(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -39,7 +24,6 @@ class UsersContainer extends React.Component {
                 users={this.props.users}
                 subscribe={this.props.subscribe}
                 unsubscribe={this.props.unsubscribe}
-                toggleFollowingProgress={this.props.toggleFollowingProgress}
                 followingInProgress={this.props.followingInProgress}
             />
         </div>
@@ -57,6 +41,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,
-    { subscribe, unsubscribe, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress }
-)(UsersContainer); 
+export default connect(mapStateToProps, { subscribe, unsubscribe, toggleIsFollowingProgress, getUsers})(UsersContainer); 
