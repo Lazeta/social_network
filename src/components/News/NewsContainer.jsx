@@ -1,13 +1,14 @@
 import React from "react";
+import { withAuthRedirect } from "../hoc/withAuthRedirect";
+import News from "./News";
+import { connect } from "react-redux";
 
 class NewsContainer extends React.Component {
     render () {
-        return (
-            <div>
-                News
-            </div>
-        )
+        return <News {...this.props}/>
     }
 }
 
-export default NewsContainer;
+const mapStateToProps = (state) => ({})
+
+export default connect(mapStateToProps)(withAuthRedirect(NewsContainer));

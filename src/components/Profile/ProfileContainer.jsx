@@ -1,24 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { withRouter } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUserProfile } from "../../redux/profile-reducer";
+import { withAuthRedirect } from "../hoc/withAuthRedirect";
 
-class ProfileContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUserProfile(this.props.match.params.userId)
-    }
-    render() {
-        // if (!this.props.isAuth) return <Navigate to={'/Login'}/> // redirect to Login page if user is not authorized
-        return <Profile {...this.props} profile={this.props.profile} />
-    }
+const ProfileContainer = ({ getUserProfile, profile }) => {
+    const { userId } = useParams();
+
+    useEffect(() => {
+        getUserProfile(userId);
+    }, [userId, getUserProfile]);
+
+    return <Profile profile={profile} />;
 }
 
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
-})
+const mapStateToProps = (state) => ({
+    profile: state.profilePage.profile
+});
 
-let withUrlDataContainerComponent = withRouter(ProfileContainer);
-
-export default connect(mapStateToProps, { getUserProfile })(withUrlDataContainerComponent);
+export default withAuthRedirect(connect(mapStateToProps, { getUserProfile })(ProfileContainer));

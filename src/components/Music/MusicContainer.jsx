@@ -1,13 +1,13 @@
 import React from "react";
+import Music from "./Music";
+import { withAuthRedirect } from "../hoc/withAuthRedirect";
 
 class MusicContainer extends React.Component {
     render() {
-        return (
-            <div>
-                Music
-            </div>
-        )
+        return <Music {...this.props}/>
     }
 }
 
-export default MusicContainer;
+let mapStateToProps = (state) => ({});
+
+export default withAuthRedirect(connect(mapStateToProps)(MusicContainer));

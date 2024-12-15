@@ -13,6 +13,8 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    // newsPage: newsReducer,
+    // musicPage: musicReducer,
 })
 
 let store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware));
