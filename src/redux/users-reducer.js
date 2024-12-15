@@ -70,46 +70,39 @@ const usersReducer = (state = initialState, action) => {
 export const subscribeSuccess = (userId) => ({ type: SUBSCRIBE, userId });
 export const unsubscribeSuccess = (userId) => ({ type: UNSUBSCRIBE, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE,currentPage});
-export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT,totalCount});
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING,isFetching});
-export const toggleIsFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS,isFetching, userId});
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
+export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount});
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
 // redux-thunk function
-export const getUsers = (currentPage, pageSize) => {
-  return (dispatch) => {
-    dispatch(toggleIsFetching(true));
-    // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
-      dispatch(toggleIsFetching(false));
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount));
-    });
-  };
+export const getUsers = (currentPage, pageSize) => (dispatch) => {
+  dispatch(toggleIsFetching(true));
+  usersAPI.getUsers(currentPage, pageSize).then((data) => {
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+  });
 };
 
-export const subscribe = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleIsFollowingProgress(true, userId));
-    usersAPI.postUser(userId).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(subscribeSuccess(userId));
-      }
-      dispatch(toggleIsFollowingProgress(false, userId));
-    });
-  };
+export const subscribe = (userId) => (dispatch) => {
+  dispatch(toggleIsFollowingProgress(true, userId));
+  usersAPI.postUser(userId).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(subscribeSuccess(userId));
+    }
+    dispatch(toggleIsFollowingProgress(false, userId));
+  });
 };
 
-export const unsubscribe = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleIsFollowingProgress(true, userId));
-    usersAPI.deleteUser(userId).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unsubscribeSuccess(userId));
-      }
-      dispatch(toggleIsFollowingProgress(false, userId));
-    });
-  };
+export const unsubscribe = (userId) => (dispatch) => {
+  dispatch(toggleIsFollowingProgress(true, userId));
+  usersAPI.deleteUser(userId).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(unsubscribeSuccess(userId));
+    }
+    dispatch(toggleIsFollowingProgress(false, userId));
+  });
 };
 
 export default usersReducer;

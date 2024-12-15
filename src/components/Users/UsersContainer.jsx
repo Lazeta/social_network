@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { subscribe, unsubscribe, getUsers, toggleIsFollowingProgress,
+import {
+    subscribe, unsubscribe, getUsers, toggleIsFollowingProgress, setCurrentPage,
 } from "../../redux/users-reducer";
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currenPage, this.props.pageSize);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
@@ -16,16 +17,20 @@ class UsersContainer extends React.Component {
 
     render() {
         return <div>
-            {this.props.isFetching && <Preloader />}
-            <Users totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                users={this.props.users}
-                subscribe={this.props.subscribe}
-                unsubscribe={this.props.unsubscribe}
-                followingInProgress={this.props.followingInProgress}
-            />
+            {this.props.isFetching ? <Preloader /> : null}
+            {this.props.users && this.props.users.length > 0 ? (
+                <Users
+                    totalUsersCount={this.props.totalUsersCount}
+                    pageSize={this.props.pageSize}
+                    currentPage={this.props.currentPage}
+                    onPageChanged={this.onPageChanged}
+                    users={this.props.users}
+                    subscribe={this.props.subscribe}
+                    unsubscribe={this.props.unsubscribe}
+                    setCurrentPage={this.props.setCurrentPage}
+                    followingInProgress={this.props.followingInProgress}
+                />
+            ) : null}
         </div>
     }
 }
@@ -41,4 +46,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { subscribe, unsubscribe, toggleIsFollowingProgress, getUsers})(UsersContainer); 
+export default connect(mapStateToProps, { subscribe, unsubscribe, setCurrentPage, toggleIsFollowingProgress, getUsers })(UsersContainer);
