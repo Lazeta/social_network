@@ -9,12 +9,14 @@ class ProfileContainer extends React.Component {
         this.props.getUserProfile(this.props.match.params.userId)
     }
     render() {
+        // if (!this.props.isAuth) return <Navigate to={'/Login'}/> // redirect to Login page if user is not authorized
         return <Profile {...this.props} profile={this.props.profile} />
     }
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 let withUrlDataContainerComponent = withRouter(ProfileContainer);

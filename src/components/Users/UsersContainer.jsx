@@ -5,6 +5,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { Navigate } from 'react-router-dom';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -16,6 +17,7 @@ class UsersContainer extends React.Component {
     }
 
     render() {
+        if (!this.props.isAuth) return <Navigate to={'/Login'}/>
         return <div>
             {this.props.isFetching ? <Preloader /> : null}
             {this.props.users && <Users
