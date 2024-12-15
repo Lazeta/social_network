@@ -19,6 +19,8 @@ const Dialogs = (props) => {
         props.updateNewMessageBody(body);
     }
 
+    alert(props.isAuth);
+
     return (<div className={s.dialogs}>
         <div className={s.dialogsItems}>
             <div className={s.dialog + ' ' + s.active}>

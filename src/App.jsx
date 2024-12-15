@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import LoginPage from './components/Login/Login';
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                         <Route path="/profile/:userId?" element={<Profile/>}/>
                         <Route path="/dialogs/" element={<DialogsContainer/>}/>
                         <Route path="/users/" element={<UsersContainer/>}/>
+                        <Route path="/login/" element={<LoginPage/>}/>
                         <Route path="/music/" element={<Music />}/>
                         <Route path="/news/" element={<News />}/>
                         <Route path="/settings/" element={<Settings />}/>

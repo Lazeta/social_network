@@ -10,6 +10,8 @@ const Users = (props) => {
         pages.push(i);
     }
 
+    console.log('Users props:', props);
+
     return <div>
         <div className={s.pages}>
             {pages.map((p, index) => {
@@ -32,11 +34,11 @@ const Users = (props) => {
                     <div>
                         {u.followed
                             ? <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                onClick={() => { props.unsubscribe(u.id).then(({ data }) => data) }}>
+                                onClick={() => { props.unsubscribe(u.id).then(data => data) }}>
                                 Unsubscribe
                             </button>
                             : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                onClick={() => { props.subscribe(u.id).then(({ data }) => data) }}>
+                                onClick={() => { props.subscribe(u.id).then(data => data) }}>
                                 Subscribe
                             </button>
                         }
