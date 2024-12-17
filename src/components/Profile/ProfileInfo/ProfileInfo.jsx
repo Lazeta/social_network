@@ -10,13 +10,13 @@ const ProfileInfo = (props) => {
     }
     return (
         <div>
-            <div>
+            {/* <div>
                 <img src="https://idg.net.ua/blog/wp-content/uploads/hand-coding-700x325.jpg" alt="coding hands"/>
-            </div>
+            </div> */}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt="my avatar"/>
 
-                <ProfileStatus status={'hello men'}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     )
