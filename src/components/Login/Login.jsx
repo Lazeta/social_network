@@ -1,6 +1,9 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { Input } from "../common/FormsControls/FormControls";
+import { connect } from "react-redux";
+import { login } from "../../redux/auth-reducer";
+import { Navigate } from "react-router-dom";
 
 const LoginForm = (props) => {
     return (
@@ -33,13 +36,20 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData);
+        const { email, password, rememberMe } = formData; 
+        props.login(email, password, rememberMe);
     }
 
+    props.isAuth && <Navigate to="/profile" />
+
     return <div>
-        <h1>LOGIN</h1>
+        <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit} />
     </div>
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+})
+
+export default connect(mapStateToProps, {login})(Login);

@@ -18,7 +18,12 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-    getAuthUserData: () => Instance.get(`auth/me`).then(response => response.data),
+    me() { Instance.get(`auth/me`)
+        .then(response => response.data) },
+    login(email, password, rememberMe = false) { Instance.post(`auth/login`, { email, password, rememberMe })
+        .then(response => response.data) },
+    logout() { Instance.delete(`auth/login`)
+        .then(response => response.data) },
 }
 
 export const profileAPI = {
