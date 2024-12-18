@@ -6,3 +6,9 @@
 .form-control.error textarea {
     border: solid red 1px;
 }
+
+.formSummaryError {
+    border: solid red 1px;
+    padding: 5px;
+    color: rosybrown;
+}
