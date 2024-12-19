@@ -2,6 +2,10 @@ export const getUsers = (state) => {
     return state.usersPage.users;
 }
 
+export const getTempSavedUsers = (state) => {
+    return state.usersPage.users.filter(u => u.tempSavedArray === true);
+}
+
 export const getPageSize = (state) => {
     return state.usersPage.pageSize;
 }
