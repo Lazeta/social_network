@@ -1,12 +1,11 @@
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from '../../redux/users-selectors';
+import {subscribe, unsubscribe, requestUsers, toggleIsFollowingProgress, setCurrentPage,} from "../../redux/users-reducer";
 import React from 'react';
 import { connect } from "react-redux";
-import {
-    subscribe, unsubscribe, getUsers, toggleIsFollowingProgress, setCurrentPage,
-} from "../../redux/users-reducer";
-import Users from './Users';
+import { compose } from 'redux';
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
-import { compose } from 'redux';
+import Users from './Users';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -36,18 +35,31 @@ class UsersContainer extends React.Component {
     }
 }
 
+// let mapStateToProps = (state) => {
+//     return {
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// }
+
+
+// use selectors
 let mapStateToProps = (state) => {
     return {
-        totalUsersCount: state.usersPage.totalUsersCount,
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 
 export default compose(
-    connect(mapStateToProps, { subscribe, unsubscribe, setCurrentPage, toggleIsFollowingProgress, getUsers }),
+    connect(mapStateToProps, { subscribe, unsubscribe, setCurrentPage, toggleIsFollowingProgress, getUsers: requestUsers }),
     withAuthRedirect,
 )(UsersContainer)
