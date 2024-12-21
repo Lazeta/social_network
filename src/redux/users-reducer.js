@@ -89,7 +89,7 @@ export const requestUsers = (page, pageSize) => async (dispatch) => {
 export const subscribe = (userId) => async (dispatch) => {
   dispatch(toggleIsFollowingProgress(true, userId));
   let response = await usersAPI.postUser(userId);
-    if (response.resultCode === 0) {
+    if (response.data.resultCode === 0) {
       dispatch(subscribeSuccess(userId));
     }
     dispatch(toggleIsFollowingProgress(false, userId));
@@ -98,7 +98,7 @@ export const subscribe = (userId) => async (dispatch) => {
 export const unsubscribe = (userId) => async (dispatch) => {
   dispatch(toggleIsFollowingProgress(true, userId));
   let response = await usersAPI.deleteUser(userId)
-    if (response.resultCode === 0) {
+    if (response.data.resultCode === 0) {
       dispatch(unsubscribeSuccess(userId));
     }
     dispatch(toggleIsFollowingProgress(false, userId));

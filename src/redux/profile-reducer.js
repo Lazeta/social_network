@@ -61,16 +61,16 @@ export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile,});
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const getUserProfile = (userId) => async (dispatch) => {
   let response = await usersAPI.getUserProfile(userId);
-  dispatch(setUserProfile(response));
+  dispatch(setUserProfile(response.data));
 };
 export const getStatus = (userId) => async (dispatch) => {
   let response = await profileAPI.getStatus(userId);
-  dispatch(setStatus(response));
+  dispatch(setStatus(response.data));
 };
 export const updateStatus = (status) => async (dispatch) => {
   let response = await profileAPI.updateStatus(status);
-  if (response.resultCode === 0) {
-    dispatch(setStatus(response));
+  if (response.data.resultCode === 0) {
+    dispatch(setStatus(status));
   }
 };
 
