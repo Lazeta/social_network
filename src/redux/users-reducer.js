@@ -99,7 +99,7 @@ export const subscribe = (userId) => async (dispatch) => {
 };
 
 export const unsubscribe = (userId) => async (dispatch) => {
-    subscribeUnsubscribeFlow(dispatch, userId, userAPI.deleteUser.bind(usersAPI), unsubscribeSuccess)
+    subscribeUnsubscribeFlow(dispatch, userId, usersAPI.deleteUser.bind(usersAPI), unsubscribeSuccess)
 };
 
 export default usersReducer;
