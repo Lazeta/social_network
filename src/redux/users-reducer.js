@@ -20,7 +20,6 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FAKE': return {...state, fake: state.fake + 1}
     case SUBSCRIBE: {
       return {
         ...state,
@@ -78,34 +77,31 @@ export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFe
 export const toggleIsFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
 // redux-thunk function
-export const requestUsers = (page, pageSize) => (dispatch) => {
+export const requestUsers = (page, pageSize) => async (dispatch) => {
   dispatch(toggleIsFetching(true));
   dispatch(setCurrentPage(page));
-  usersAPI.getUsers(page, pageSize).then((data) => {
+  let response = await usersAPI.getUsers(page, pageSize);
     dispatch(toggleIsFetching(false));
-    dispatch(setUsers(data.items));
-    dispatch(setTotalUsersCount(data.totalCount));
-  });
+    dispatch(setUsers(response.items));
+    dispatch(setTotalUsersCount(response.totalCount));
 };
 
-export const subscribe = (userId) => (dispatch) => {
+export const subscribe = (userId) => async (dispatch) => {
   dispatch(toggleIsFollowingProgress(true, userId));
-  usersAPI.postUser(userId).then((data) => {
-    if (data.resultCode === 0) {
+  let response = await usersAPI.postUser(userId);
+    if (response.resultCode === 0) {
       dispatch(subscribeSuccess(userId));
     }
     dispatch(toggleIsFollowingProgress(false, userId));
-  });
 };
 
-export const unsubscribe = (userId) => (dispatch) => {
+export const unsubscribe = (userId) => async (dispatch) => {
   dispatch(toggleIsFollowingProgress(true, userId));
-  usersAPI.deleteUser(userId).then((data) => {
-    if (data.resultCode === 0) {
+  let response = await usersAPI.deleteUser(userId)
+    if (response.resultCode === 0) {
       dispatch(unsubscribeSuccess(userId));
     }
     dispatch(toggleIsFollowingProgress(false, userId));
-  });
 };
 
 export default usersReducer;
