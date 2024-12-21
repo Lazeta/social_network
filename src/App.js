@@ -9,12 +9,13 @@ import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import { Component } from 'react';
 import Preloader from './components/common/Preloader/Preloader';
 import { initializedApp } from './redux/app-reducer';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class App extends Component {
-    ComponentDidMount() {
+    componentDidMount() {
         this.props.initializedApp();
     }
 

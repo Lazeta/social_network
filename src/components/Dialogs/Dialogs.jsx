@@ -2,7 +2,6 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import { reduxForm } from "redux-form";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 const Dialogs = (props) => {

@@ -12,8 +12,8 @@ class MyPostsContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
+        newPostText: state.profilePage.newPostText,
     }
 }
 
-export default connect(mapStateToProps, { newPostText , addPost})(MyPostsContainer);
+export default connect(mapStateToProps, { /** newPostText **/  addPost })(MyPostsContainer);

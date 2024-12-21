@@ -2,6 +2,7 @@ import { Field, reduxForm } from "redux-form";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import React, { memo } from "react";
+import { maxLengthCreator, required } from "../../../utils/validators";
 
 let maxLength30 = maxLengthCreator(30);
 
@@ -23,7 +24,7 @@ const MyPosts = memo((props) => {
     </div>
 });
 
-const AddNewPostForm = (props) => {
+let AddNewPostForm = (props) => {
     return <form onSubmit={ props.handleSubmit }>
         <div>
             <Field component={'textarea'} name={'newPostText'} 

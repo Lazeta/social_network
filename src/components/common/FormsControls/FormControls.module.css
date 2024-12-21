@@ -1,9 +1,9 @@
-.form-control {
+.formControl {
     border-radius: 0;
 }
 
-.form-control.error input,
-.form-control.error textarea {
+.formControl.error input,
+.formControl.error textarea {
     border: solid red 1px;
 }
 
