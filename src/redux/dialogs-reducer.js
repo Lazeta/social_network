@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SEND_MESSAGE = 'SocialNetwork/dialogs-reducer/SEND_MESSAGE';
 
 let initialState = {
     dialogs: [

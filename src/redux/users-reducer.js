@@ -1,12 +1,12 @@
 import { usersAPI } from "../api/api";
 
-const SUBSCRIBE = "SUBSCRIBE";
-const UNSUBSCRIBE = "UNSUBSCRIBE";
-const SET_USERS = "SET-USERS";
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
-const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
-const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
-const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE-IS-FOLLOWING-PROGRESS";
+const SUBSCRIBE = "SocialNetwork/users-reducer/SUBSCRIBE";
+const UNSUBSCRIBE = "SocialNetwork/users-reducer/UNSUBSCRIBE";
+const SET_USERS = "SocialNetwork/users-reducer/SET_USERS";
+const SET_CURRENT_PAGE = "SocialNetwork/users-reducer/SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "SocialNetwork/users-reducer/SET_TOTAL_USERS_COUNT";
+const TOGGLE_IS_FETCHING = "SocialNetwork/users-reducer/TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "SocialNetwork/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 
 let initialState = {
   users: [],
