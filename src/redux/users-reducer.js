@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api";
+import { updateObjectToArray } from "../utils/object-helpers";
 
 const SUBSCRIBE = "SocialNetwork/users-reducer/SUBSCRIBE";
 const UNSUBSCRIBE = "SocialNetwork/users-reducer/UNSUBSCRIBE";
@@ -15,7 +16,6 @@ let initialState = {
   currentPage: 1,
   isFetching: true,
   followingInProgress: [],
-  fake: 10,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -23,24 +23,14 @@ const usersReducer = (state = initialState, action) => {
     case SUBSCRIBE: {
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userId) {
-            return { ...u, followed: true };
-          }
-          return u;
-        }),
-      };
+        users: updateObjectToArray(state.users, action.userId, "id", { followed: true})
+      }
     }
     case UNSUBSCRIBE: {
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userId) {
-            return { ...u, followed: false };
-          }
-          return u;
-        }),
-      };
+        users: updateObjectToArray(state.users, action.userId, "id", { followed: false})
+      }
     }
     case SET_USERS: {
       return { ...state, users: action.users };
@@ -63,8 +53,7 @@ const usersReducer = (state = initialState, action) => {
       };
     }
 
-    default:
-      return state;
+    default: return state;
   }
 };
 
