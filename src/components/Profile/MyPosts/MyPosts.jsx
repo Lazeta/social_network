@@ -1,11 +1,11 @@
 import { Field, reduxForm } from "redux-form";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import React from "react";
+import React, { memo } from "react";
 
-let maxLength30 = maxLengthCreator(30)
+let maxLength30 = maxLengthCreator(30);
 
-const MyPosts = (props) => {
+const MyPosts = memo((props) => {
     let postsElements = props.posts.map(p => {
         return <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount} />
     });
@@ -21,7 +21,7 @@ const MyPosts = (props) => {
             {postsElements}
         </div>
     </div>
-}
+});
 
 const AddNewPostForm = (props) => {
     return <form onSubmit={ props.handleSubmit }>
@@ -35,6 +35,6 @@ const AddNewPostForm = (props) => {
     </form>
 }
 
-AddNewPostForm = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm)
+AddNewPostForm = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm);
 
 export default MyPosts;
