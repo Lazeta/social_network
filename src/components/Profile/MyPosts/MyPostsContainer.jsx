@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { addPost } from "../../../redux/profile-reducer";
 
 const MyPostsContainer = (props) => {
-    return (<MyPosts {...props} />)
+    return <MyPosts {...props} />
 }
 
 const mapStateToProps = ({ profilePage }) => {

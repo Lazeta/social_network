@@ -1,29 +1,28 @@
+import React from 'react';
+import { useState } from 'react';
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import React, { PureComponent } from "react";
+import AddNewPostForm from "./addNewPostForm/AddNewPostForm";
 
-class MyPosts extends PureComponent {
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps !== this.props || nextState !== this.state;
+const MyPosts = ({ posts, addPost }) => {
+    const [newPostText, setNewPostText] = useState('');
+
+    const onAddPost = () => {
+        addPost(newPostText);
+        setNewPostText(''); // Сбросить текстовое поле после добавления поста
     }
 
-    render () {
-        let postsElements = this.props.posts.map(p => {
-            return <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount} />
-        });
-    
-        let onAddPost = (values) => {
-            this.props.addPost(values.newPostText);
-        }
-
-        return <div className={s.postsBlock}>
-        <h3>"My posts"</h3>
-        <AddNewPostForm onSubmit={onAddPost} />
-        <div className={s.posts}>
-            {postsElements}
+    return (
+        <div className={s.postsBlock}>
+            <h3>"My posts"</h3>
+            <AddNewPostForm onAddPost={onAddPost} newPostText={newPostText} setNewPostText={setNewPostText} />
+            <div className={s.posts}>
+                {posts.map(p => (
+                    <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount} />
+                ))}
+            </div>
         </div>
-    </div>
-    }
+    );
 }
 
 export default MyPosts;
