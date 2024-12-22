@@ -5,11 +5,7 @@ import { newMessageBody } from "../../redux/dialogs-reducer";
 import { withAuthRedirect } from "../hoc/withAuthRedirect";
 import { compose } from "redux";
 
-const DialogsContainer = ({...props}) => {
-    {
-        return <Dialogs {...props}/>
-    }
-}
+const DialogsContainer = (props) => <Dialogs {...props}/>
 
 let mapStateToProps = ({dialogsPage}) => {
     return dialogsPage

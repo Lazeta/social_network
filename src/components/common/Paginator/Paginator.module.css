@@ -1,3 +1,16 @@
 .selectedPage {
     font-weight: bold;
 }
+
+.pageNumber {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.pages {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 0 auto;
+    width: min-content;
+    border-radius: 10px;
+}
