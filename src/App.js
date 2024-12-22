@@ -33,10 +33,10 @@ const App = () => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
+                        <Route path="/login/" element={<Login/>}/>
                         <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                         <Route path="/dialogs/" element={<DialogsContainer/>}/>
                         <Route path="/users/" element={<UsersContainer/>}/>
-                        <Route path="/login/" element={<Login/>}/>
                         <Route path="/music/" element={<Music />}/>
                         <Route path="/news/" element={<News />}/>
                         <Route path="/settings/" element={<Settings />}/>
