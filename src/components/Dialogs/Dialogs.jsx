@@ -4,7 +4,7 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
-const Dialogs = (props) => {
+let Dialogs = (props) => {
 
     let state = props.dialogsPage;
 

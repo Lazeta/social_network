@@ -4,7 +4,6 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -13,6 +12,8 @@ import Preloader from './components/common/Preloader/Preloader';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { initializedApp } from './redux/app-reducer';
+
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const App = () => {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path="/login/" element={<Login/>}/>
-                        <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-                        <Route path="/dialogs/" element={<DialogsContainer/>}/>
+                        <Route path="/profile/:userId?" element={withSuspense(ProfileContainer)}/>
+                        <Route path="/dialogs/" element={withSuspense(() => import('./components/Dialogs/DialogsContainer'))}/>
                         <Route path="/users/" element={<UsersContainer/>}/>
                         <Route path="/music/" element={<Music />}/>
                         <Route path="/news/" element={<News />}/>
