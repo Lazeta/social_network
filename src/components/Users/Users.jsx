@@ -10,7 +10,7 @@ const Users = ({ currentPage, onPageChanged, totalItemsCount, pageSize, users, .
                 users.map(u =>
                     <User
                         key={u.id}
-                        user={u}
+                        user={u.id}
                         followingInProgress={props.followingInProgress}
                         subscribe={props.subscribe}
                         unsubscribe={props.unsubscribe}

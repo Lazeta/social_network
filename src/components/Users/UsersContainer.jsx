@@ -21,6 +21,8 @@ const UsersContainer = ({
         requestUsers(pageNumber, pageSize);
     }
 
+    debugger
+
     return (
         <div>
             {isFetching && <Preloader />}
