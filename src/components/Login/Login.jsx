@@ -10,9 +10,9 @@ import s from "../common/FormsControls/FormControls.module.css";
 const LoginForm = ({ handleSubmit, error }) => {
     return (
         <form onSubmit={handleSubmit}>
-            {CreateField("Input", "Email", "email", [required],)}
-            {CreateField("Input", "Password", "password", [required],)}
-            {CreateField("Input", null, "rememberMe", [], { type: "checkbox" }, "remember me")}
+            {CreateField("input", "Email", "email", [required])}
+            {CreateField("input", "Password", "password", [required])}
+            {CreateField("input", null, "rememberMe", [], { type: "checkbox" }, "remember me")}
 
             {error && <div className={s.formSummaryError}>
                 {error}
@@ -33,7 +33,7 @@ const Login = ({ login, isAuth }) => {
         login(email, password, rememberMe);
     }
 
-    isAuth && <Navigate to="/profile" />
+    if (isAuth) return <Navigate to="/profile" />
 
     return <div>
         <h1>Login</h1>

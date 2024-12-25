@@ -24,7 +24,7 @@ const Paginator = ({ currentPage, onPageChanged, totalItemsCount, pageSize, port
         {pages.filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => {
                 return <span className={cn({ [s.selectedPage]: currentPage === p }, s.pageNumber)}
-                    key={p}
+                    key={p.id}
                     onClick={(e) => { onPageChanged(p) }}>{p}</span>
             })
         }

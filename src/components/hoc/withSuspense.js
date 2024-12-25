@@ -1,14 +1,18 @@
 import React from "react";
 import Preloader from "../common/Preloader/Preloader";
 
-export const withSuspense = (Component) => {
-  return (props) => {
+const withSuspense = (Component) => {
+  const WrapperComponent = (props) => {
+    // const { pathname, params } = props.route;
+
     return (
-      <>
-        <React.Suspense fallback={<Preloader />}>
-          <Component {...props} />
-        </React.Suspense>
-      </>
+      <React.Suspense fallback={<Preloader />}>
+        <Component {...props} />
+      </React.Suspense>
     );
   };
+
+  return WrapperComponent;
 };
+
+export default withSuspense;

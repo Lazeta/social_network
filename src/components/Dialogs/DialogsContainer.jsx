@@ -2,8 +2,8 @@ import React from "react";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { newMessageBody } from "../../redux/dialogs-reducer";
-import { withAuthRedirect } from "../hoc/withAuthRedirect";
 import { compose } from "redux";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 let DialogsContainer = (props) => <Dialogs {...props}/>
 

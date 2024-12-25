@@ -9,6 +9,7 @@ import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
 import newsReducer from "./news-reducer";
 import musicReducer from "./music-reducer";
+import settingsReducer from "./settings-reducer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
@@ -20,6 +21,7 @@ let reducers = combineReducers({
     app: appReducer,
     newsPage: newsReducer,
     musicPage: musicReducer,
+    settingsPage: settingsReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

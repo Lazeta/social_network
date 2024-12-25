@@ -10,11 +10,11 @@ export const usersAPI = {
     getUsers: (currentPage = 1, pageSize = 10) => Instance.get(`users?page=${currentPage}&count=${pageSize}`),
     postUser: (userId) => Instance.post(`follow/${userId}`),
     deleteUser: (userId) => Instance.delete(`follow/${userId}`),
-    getUserProfile: (userId) => profileAPI.getProfile(userId)
+    getUserProfile: (userId) => Instance.get(`profile/${userId}`),
 }
 
 export const authAPI = {
-    me() { return Instance.get(`auth/me`) },
+    me: () => Instance.get(`auth/me`),
     login:(email, password, rememberMe = false) => Instance.post(`auth/login`, { email, password, rememberMe }),
     logout:() => Instance.delete(`auth/login`),
 }

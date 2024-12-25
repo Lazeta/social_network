@@ -4,21 +4,21 @@ import React from 'react';
 import { connect } from "react-redux";
 import { compose } from 'redux';
 import Preloader from '../common/Preloader/Preloader';
-import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import withAuthRedirect from '../hoc/withAuthRedirect';
 import Users from './Users';
 import { useEffect } from 'react';
 
 const UsersContainer = ({
     users, pageSize, totalUsersCount, currentPage, isFetching, followingInProgress,
-    getUsers, setCurrentPage, subscribe, unsubscribe
+    requestUsers, setCurrentPage, subscribe, unsubscribe
 }) => {
 
     useEffect(() => {
-        getUsers(currentPage, pageSize);
-    }, [currentPage, pageSize, getUsers]);
+        requestUsers(currentPage, pageSize);
+    }, [currentPage, pageSize, requestUsers]);
 
     const onPageChanged = (pageNumber) => {
-        getUsers(pageNumber, pageSize);
+        requestUsers(pageNumber, pageSize);
     }
 
     return (
@@ -52,6 +52,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { subscribe, unsubscribe, setCurrentPage, toggleIsFollowingProgress, getUsers: requestUsers }),
-    withAuthRedirect,
+    connect(mapStateToProps, 
+        { subscribe, unsubscribe, setCurrentPage, toggleIsFollowingProgress, requestUsers }),
+    withAuthRedirect
 )(UsersContainer)

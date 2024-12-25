@@ -1,13 +1,12 @@
 import React from "react";
+import withAuthRedirect from "../hoc/withAuthRedirect";
+import { connect, useSelector } from "react-redux";
 import Music from "./Music";
-import { withAuthRedirect } from "../hoc/withAuthRedirect";
 
-class MusicContainer extends React.Component {
-    render() {
-        return <Music {...this.props}/>
-    }
+const MusicContainer = (props) => {
+    // используем хук useSelector для доступа к состоянию Redux
+    const musicData = useSelector(state => state.musicData)
+    return <Music {...props} musicData={musicData} />
 }
 
-let mapStateToProps = (state) => ({});
-
-export default withAuthRedirect(connect(mapStateToProps)(MusicContainer));
+export default withAuthRedirect(connect()(MusicContainer));
