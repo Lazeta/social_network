@@ -18,6 +18,7 @@ const App = () => {
   const dispatch = useDispatch();
   const initialized = useSelector((state) => state.app.initialized);
 
+  // 1) added processing error
   useEffect(() => {
     dispatch(initializedApp());
   }, [dispatch]);
@@ -32,17 +33,17 @@ const App = () => {
       <NavbarContainer />
       <div className="app-wrapper-content">
         <Routes>
-          <Route path="/login" element={
+          {/* <Route path="/login" element={
             <Suspense fallback={<Preloader/>}>
               <Login />
             </Suspense>
-          } />
+          } /> */}
           <Route path="/profile/:userId?" element={
             <Suspense fallback={<Preloader/>}>
               <ProfileContainer/>
             </Suspense>
           }/> 
-          <Route path="/dialogs" element={
+          {/* <Route path="/dialogs" element={
             <Suspense fallback={<Preloader/>}>
               <DialogsContainer/>
             </Suspense>
@@ -66,7 +67,7 @@ const App = () => {
             <Suspense fallback={<Preloader/>}>
               <SettingsContainer />
             </Suspense>
-          } />
+          } /> */}
         </Routes>
       </div>
     </div>

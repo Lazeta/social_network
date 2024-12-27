@@ -10,7 +10,15 @@ export const usersAPI = {
     getUsers: (currentPage = 1, pageSize = 10) => Instance.get(`users?page=${currentPage}&count=${pageSize}`),
     postUser: (userId) => Instance.post(`follow/${userId}`),
     deleteUser: (userId) => Instance.delete(`follow/${userId}`),
-    getUserProfile: (userId) => Instance.get(`profile/${userId}`),
+    getUserProfile: async (userId) => {
+        try {
+            const response = await Instance.get(`profile/${userId}`); // Используйте await для асинхронного выполнения запроса
+            return response.data;
+        } catch (error) {
+            console.error("Failed to fetch user profile:", error);
+            throw error;
+        }
+    },
 }
 
 export const authAPI = {
@@ -22,5 +30,5 @@ export const authAPI = {
 export const profileAPI = {
     getProfile: (userId) => Instance.get(`profile/${userId}`),
     getStatus: (userId) => Instance.get(`profile/status/${userId}`),
-    updateStatus: (status) => Instance.put(`profile/status`, {status: status})
+    updateStatus: (status) => Instance.put(`profile/status`, {status})
 }

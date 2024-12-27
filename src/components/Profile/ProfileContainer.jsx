@@ -5,19 +5,36 @@ import { useParams } from "react-router-dom";
 import { getUserProfile } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import withAuthRedirect from "../hoc/withAuthRedirect";
+import Preloader from "../common/Preloader/Preloader";
 
-const ProfileContainer = ({ getUserProfile, profile }) => {
-    const { userId } = useParams();
+const ProfileContainer = ({ profile, userId, status, loading, getUserProfile }) => {
+    // const { userId } = useParams(); // 1.0 деструктуризация объекта params и достаем userId
 
-    useEffect(() => {
-        getUserProfile(userId);
-    }, []);
+    // console.log('urlUserId:', userId);
 
-    return <Profile profile={profile} />;
+    // useEffect(() => {
+    //     if (userId !== undefined) {
+    //         getUserProfile(userId); // 1.1 передаем userId в запрос
+    //     } else {
+    //         console.error("userId is undefined");
+    //     }
+    // }, [userId, getUserProfile]); // 1.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
+
+    return (
+        <>
+            {/* {loading ? <Preloader /> : profile ? <Profile profile={profile} userId={userId} status={status} /> : <div>Profile not found</div>} */}
+            <Profile />
+        </>
+    );
 }
 
+// export default ProfileContainer
+
 const mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage?.profile, // Используйте опциональную цепочку
+    userId: state.auth.userId,
+    status: state.profilePage?.status,
+    loading: state.profilePage?.loading,
 });
 
 export default compose(
