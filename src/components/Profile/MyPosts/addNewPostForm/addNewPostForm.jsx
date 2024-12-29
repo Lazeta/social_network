@@ -1,42 +1,45 @@
-import { Field, reduxForm } from "redux-form";
-import React, { useState, useEffect } from "react";
-import { maxLengthCreator, required } from "../../../../utils/validators";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-let maxLength30 = maxLengthCreator(30);
-
-const AddNewPostForm = ({ handleSubmit, someProp }) => {
-    const [prevSomeProp, setPrevSomeProp] = useState(null);
-    const [newPostText, setNewPostText] = useState('');
-
-    useEffect(() => {
-        if (someProp !== prevSomeProp) {
-            setPrevSomeProp(someProp);
-            // Вы можете выполнить здесь любые действия при изменении пропса someProp
-        }
-    }, [someProp, prevSomeProp]);
-
-    const handleBlur = () => {
-        if (!newPostText.trim()) {
-            setNewPostText('');
-        }
-    }
+const AddNewPostForm = ({ onSubmit }) => {
+    const validationSchema = Yup.object().shape({
+        newPostText: Yup.string()
+            .required('Required')
+            .max(30, 'Must be 30 characters or less'),
+    });
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    component={'textarea'}
-                    name={'newPostText'}
-                    validate={[required, maxLength30]}
-                    onBlur={handleBlur}
-                    onChange={(e) => setNewPostText(e.target.value)}
-                />
-            </div>
-            <div>
-                <button>Add post</button>
-            </div>
-        </form>
+        // 1.1
+        // Formik обрабатывает отправку формы и вызывает метод onSubmit, передавая в него
+        // значения формы и объект, содержащий методы управления формой.
+        // функция onSubmit принимает параметры values (содержащий введенный текст поста) и
+        // объект с методами, включая resetForm.
+        // on Submit вызывает функцию onAddPost приходящий из пропса MyPosts компонента передавая
+        // значения формы, то есть объект с полем newPostText.
+        // 1.9
+        // вызывается resetForm, что очищает форму, возвращая его начальное значение (пустая строка).
+        <Formik
+            initialValues={{ newPostText: '' }}
+            validationScheme={validationSchema}
+            onSubmit={(values, { resetForm }) => {
+                onSubmit(values); 
+                resetForm();
+            }}
+        >
+            {() => (
+                <Form>
+                    <div>
+                        <Field name="newPostText" as="textarea" />
+                        <ErrorMessage name="newPostText" component="div" />
+                    </div>
+                    <div>
+                        <button type="submit">Add post</button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     );
 };
 
-export default reduxForm({ form: "ProfileAddNewPostForm" })(AddNewPostForm);
+export default AddNewPostForm;

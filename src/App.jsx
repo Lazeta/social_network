@@ -20,8 +20,10 @@ const App = () => {
 
   // 1) added processing error
   useEffect(() => {
-    dispatch(initializedApp());
-  }, [dispatch]);
+    if(!initialized) {
+      dispatch(initializedApp());
+    }
+  }, [dispatch, initialized]);
 
   if (!initialized) {
     return <Preloader />;
@@ -33,11 +35,11 @@ const App = () => {
       <NavbarContainer />
       <div className="app-wrapper-content">
         <Routes>
-          {/* <Route path="/login" element={
+          <Route path="/login" element={
             <Suspense fallback={<Preloader/>}>
               <Login />
             </Suspense>
-          } /> */}
+          } />
           <Route path="/profile/:userId?" element={
             <Suspense fallback={<Preloader/>}>
               <ProfileContainer/>

@@ -1,9 +1,9 @@
 import { profileAPI, usersAPI } from "../api/api";
 
-const ADD_POST = "SocialNetwork/profile-reducer/ADD_POST";
-const SET_USER_PROFILE = "SocialNetwork/profile-reducer/SET_USER_PROFILE";
-const SET_STATUS = "SocialNetwork/profile-reducer/SET_STATUS";
-const DELETE_POST = "SocialNetwork/profile-reducer/DELETE_POST";
+const ADD_POST = "ADD_POST";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
+const DELETE_POST = "DELETE_POST";
 const FETCH_PROFILE_REQUEST = 'FETCH_PROFILE_REQUEST';
 const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
 const FETCH_PROFILE_FAILURE = 'FETCH_PROFILE_FAILURE';
@@ -21,30 +21,34 @@ const initialState = {
     { id: 5, message: "Are you here?", likesCount: 0 },
     { id: 6, message: "Come on!", likesCount: 62 },
   ],
+  newPostText: "",
 };
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PROFILE_REQUEST:
       return { ...state, loading: true, error: null };
-
     case FETCH_PROFILE_SUCCESS:
       return { ...state, loading: false, profile: action.payload };
-
     case FETCH_PROFILE_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
+    // 1.6
+    // в редьюсере добавляется новое поле newPostText.
+    // это поле хранит текст нового поста который вводит пользователь
+    // в поле ввода в компоненте AddNewPostForm
+    // 
     case ADD_POST:
+      if(!action.newPostText.trim()) return state
       const newPostId = state.posts.length > 0 ? Math.max(...state.posts.map((p) => p.id)) + 1 : 1;
       const newPost = {
         id: newPostId,
         message: action.newPostText,
-        likesCount: 0,
+        likesCount: 0, // добавить после количество лайков из API
       };
       return {
         ...state,
         posts: [...state.posts, newPost],
-        newPostText: "",
       };
 
     case SET_USER_PROFILE:
@@ -64,7 +68,15 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPost = (newPostText) => ({ type: ADD_POST, newPostText });
+// 1.4
+// в addPost создается экшен ADD_POST который включает текст нового поста.
+// этот экшен передается в редьюсер с помощью диспатча который вызывает функцию
+// 1.7
+// В редьюсер profileReducer, в зависимости от типа действия, проверяется, есть ли текст поста
+// и если есть, то он добавляется в массив posts, а если нет, то ничего не происходит
+export const addPost = (newPostText) => {
+  console.log("Adding post:", newPostText);
+  return { type: ADD_POST, newPostText }}
 export const deletePost = (postId) => ({ type: DELETE_POST, postId });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 export const setStatus = (status) => ({ type: SET_STATUS, status });

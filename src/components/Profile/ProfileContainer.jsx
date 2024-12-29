@@ -22,7 +22,7 @@ const ProfileContainer = ({ profile, userId, status, loading, getUserProfile }) 
 
     return (
         <>
-            {/* {loading ? <Preloader /> : profile ? <Profile profile={profile} userId={userId} status={status} /> : <div>Profile not found</div>} */}
+            {loading ? <Preloader /> : profile ? <Profile profile={profile} userId={userId} status={status} /> : <div>Profile not found</div>}
             <Profile />
         </>
     );
@@ -37,6 +37,7 @@ const mapStateToProps = (state) => ({
     loading: state.profilePage?.loading,
 });
 
+// диспатчим юзера в редьюсер
 export default compose(
     connect(mapStateToProps, { getUserProfile }),
     withAuthRedirect,

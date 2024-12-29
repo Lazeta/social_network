@@ -9,9 +9,10 @@ const MyPostsContainer = (props) => {
 
 const mapStateToProps = ({ profilePage }) => {
     return {
-        posts: profilePage.posts,
-        newPostText: profilePage.newPostText,
+        posts: profilePage.posts
     }
 }
 
+// 1.5
+// добавляем addPost в пропсы компонента и диспатчим его в редьюсер
 export default connect(mapStateToProps, { addPost })(MyPostsContainer);
