@@ -2,15 +2,15 @@ import React from "react";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 
-const Users = ({ currentPage, onPageChanged, totalItemsCount, pageSize, users, ...props }) => {
+const Users = (props) => {
     return <div>
-        <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalItemsCount={totalItemsCount} pageSize={pageSize} />
+        <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItemsCount={props.totalItemsCount} pageSize={props.pageSize} />
         <div>
             {
-                users.map(u =>
+                props.users.map(u =>
                     <User
-                        key={u.id}
-                        user={u.id}
+                        key={u.userId}
+                        user={u.userId}
                         followingInProgress={props.followingInProgress}
                         subscribe={props.subscribe}
                         unsubscribe={props.unsubscribe}

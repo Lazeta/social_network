@@ -8,19 +8,20 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
         <div>
             <span>
                 <div>
-                    <NavLink to={`/profile/${user.id}`} >
-                        <img src={user.photos.small && userPhoto}
-                            className={s.userPhoto} alt={user.photoUrl} />
+                    <NavLink to={`/profile/${user.userId}`} >
+                        {/* используем фото из ответа или стандартное, если фото пользователя не загружено */}
+                        <img src={user.photos.small || userPhoto}
+                            className={s.userPhoto} alt={user.fullName} />
                     </NavLink>
                 </div>
                 <div>
                     {user.followed
-                        ? <button disabled={followingInProgress.some(id => id === user.id)}
-                            onClick={() => { unsubscribe(user.id) }}>
+                        ? <button disabled={followingInProgress.some(id => id === user.userId)}
+                            onClick={() => { unsubscribe(user.userId) }}>
                             Unsubscribe
                         </button>
-                        : <button disabled={followingInProgress.some(id => id === user.id)}
-                            onClick={() => { subscribe(user.id) }}>
+                        : <button disabled={followingInProgress.some(id => id === user.userId)}
+                            onClick={() => { subscribe(user.userId) }}>
                             Subscribe
                         </button>
                     }
@@ -28,12 +29,20 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
             </span>
             <span>
                 <span>
-                    <div>{user.name}</div>
-                    <div>{user.status}</div>
+                    <div>{user.fullName}</div>
+                    <div>{user.lookingForAJob ? 'Looking for a job' : 'Not looking for a job'}</div>
+                    <div>{user.lookingForAJobDescription}</div>
                 </span>
                 <span>
-                    <div>{user.location && user.location.country}</div>
-                    <div>{user.location && user.location.city}</div>
+                    <div>Contacts:</div>
+                    <div>Github: {user.contacts.github}</div>
+                    <div>VK: {user.contacts.vk}</div>
+                    <div>Facebook: {user.contacts.facebook}</div>
+                    <div>Instagram: {user.contacts.instagram}</div>
+                    <div>Twitter: {user.contacts.twitter}</div>
+                    <div>Website: {user.contacts.website}</div>
+                    <div>YouTube: {user.contacts.youtube}</div>
+                    <div>Main Link: {user.contacts.mainLink}</div>
                 </span>
             </span>
         </div>)

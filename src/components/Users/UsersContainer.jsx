@@ -8,34 +8,33 @@ import withAuthRedirect from '../hoc/withAuthRedirect';
 import Users from './Users';
 import { useEffect } from 'react';
 
-const UsersContainer = ({
-    users, pageSize, totalUsersCount, currentPage, isFetching, followingInProgress,
-    requestUsers, setCurrentPage, subscribe, unsubscribe
-}) => {
-
+const UsersContainer = (props) => {
     useEffect(() => {
-        requestUsers(currentPage, pageSize);
-    }, [currentPage, pageSize, requestUsers]);
+        requestUsers(props.currentPage, props.pageSize,);
+    }, [props.currentPage, props.pageSize]);
+
+    console.log('Users in UsersContainer:', props.users);
+    console.log('Total Users Count in UsersContainer:', props.totalUsersCount);
+    console.log('Is Fetching in UsersContainer:', props.isFetching);
+    console.log('Following In Progress in UsersContainer:', props.followingInProgress);
 
     const onPageChanged = (pageNumber) => {
-        requestUsers(pageNumber, pageSize);
+        props.requestUsers(pageNumber, props.pageSize);
     }
-
-    debugger
 
     return (
         <div>
-            {isFetching && <Preloader />}
-            {users && <Users
-                totalUsersCount={totalUsersCount}
-                users={users}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+            {props.isFetching && <Preloader />}
+            {props.users && <Users
+                totalUsersCount={props.totalUsersCount}
+                users={props.users}
+                pageSize={props.pageSize}
+                currentPage={props.currentPage}
+                setCurrentPage={props.setCurrentPage}
                 onPageChanged={onPageChanged}
                 subscribe={subscribe}
                 unsubscribe={unsubscribe}
-                followingInProgress={followingInProgress}
+                followingInProgress={props.followingInProgress}
             />
             }
         </div>)
@@ -43,6 +42,21 @@ const UsersContainer = ({
 
 // use selectors
 let mapStateToProps = (state) => {
+
+    // const users = getUsers(state)
+    // const pageSize = getPageSize(state)
+    // const totalUsersCount = getTotalUsersCount(state)
+    // const currentPage = getCurrentPage(state)
+    // const isFetching = getIsFetching(state)
+    // const followingInProgress = getFollowingInProgress(state)
+
+    // console.log('Users:', users);
+    // console.log('Page Size:', pageSize);
+    // console.log('Total Users Count:', totalUsersCount);
+    // console.log('Current Page:', currentPage);
+    // console.log('Is Fetching:', isFetching);
+    // console.log('Following In Progress:', followingInProgress);
+
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),

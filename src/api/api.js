@@ -3,22 +3,21 @@ import axios from "axios";
 const Instance = axios.create({
     withCredentials: true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
-    headers: { "API-KEY": '772fe908-10fe-45a5-97e7-06d1186f95e4'}
+    headers: { "API-KEY": '23f2013b-9abb-44e0-a221-fe7f1ce6461f'}
 })
 
 export const usersAPI = {
-    getUsers: (currentPage = 1, pageSize = 10) => Instance.get(`users?page=${currentPage}&count=${pageSize}`),
-    postUser: (userId) => Instance.post(`follow/${userId}`),
-    deleteUser: (userId) => Instance.delete(`follow/${userId}`),
-    getUserProfile: async (userId) => {
+    getUsers: async (currentPage = 1, pageSize = 10) => {
         try {
-            const response = await Instance.get(`profile/${userId}`); // Используйте await для асинхронного выполнения запроса
+            const response = await Instance.get(`users?page=${currentPage}&count=${pageSize}`);
             return response.data;
         } catch (error) {
-            console.error("Failed to fetch user profile:", error);
-            throw error;
+            console.error("Error fetching users:", error);
+            throw error; // Позволяет обработать ошибку в месте вызова
         }
     },
+    postUser: (userId) => Instance.post(`follow/${userId}`),
+    deleteUser: (userId) => Instance.delete(`follow/${userId}`),
 }
 
 export const authAPI = {

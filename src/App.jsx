@@ -40,12 +40,12 @@ const App = () => {
               <Login />
             </Suspense>
           } />
-          <Route path="/profile/:userId?" element={
+          <Route path="/profile/:userId" element={
             <Suspense fallback={<Preloader/>}>
               <ProfileContainer/>
             </Suspense>
           }/> 
-          {/* <Route path="/dialogs" element={
+          <Route path="/dialogs" element={
             <Suspense fallback={<Preloader/>}>
               <DialogsContainer/>
             </Suspense>
@@ -69,7 +69,7 @@ const App = () => {
             <Suspense fallback={<Preloader/>}>
               <SettingsContainer />
             </Suspense>
-          } /> */}
+          } />
         </Routes>
       </div>
     </div>

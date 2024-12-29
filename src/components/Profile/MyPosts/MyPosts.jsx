@@ -15,10 +15,10 @@ const MyPosts = memo((props) => {
     // функция проверяет наличие текста в поле ввода и если он есть то вызывает функцию
     // addPost где values.newPostText — это текст поста
     let onAddPost = (values) => {
-        console.log("Submitted values:", values);
+        // console.log("Submitted values:", values);
         if (values.newPostText) {
             props.addPost(values.newPostText);
-            console.log("Post added");
+            // console.log("Post added");
         }
     }
 

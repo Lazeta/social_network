@@ -4,7 +4,6 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from '../../../assets/images/profile-logo.png';
 
-
 const ProfileInfo = (props) => {
 
     console.log(props.profile);

@@ -7,34 +7,39 @@ import { compose } from "redux";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import Preloader from "../common/Preloader/Preloader";
 
-const ProfileContainer = ({ profile, userId, status, loading, getUserProfile }) => {
-    // const { userId } = useParams(); // 1.0 деструктуризация объекта params и достаем userId
+const ProfileContainer = (props) => {
+    const { userId } = useParams(); // 2.0 деструктуризация объекта params и достаем userId
 
-    // console.log('urlUserId:', userId);
+    console.log('urlUserId:', userId);
 
-    // useEffect(() => {
-    //     if (userId !== undefined) {
-    //         getUserProfile(userId); // 1.1 передаем userId в запрос
-    //     } else {
-    //         console.error("userId is undefined");
-    //     }
-    // }, [userId, getUserProfile]); // 1.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
+    // деструктурируем props для удобства
+    const { profile, status, loading, getUserProfile } = props;
 
+    useEffect(() => {
+        // console.log("Current URL:", window.location.href);
+        // console.log("useEffect triggered with userId:", userId);
+        if (userId) { // проверка на существование userId
+            getUserProfile(userId); // 2.1 вызываем диспатч для получения профиля
+        } else {
+            // обработка случая, когда userId не определен
+            // console.error("userId is undefined");
+        }
+    }, [userId ,getUserProfile]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
+
+    console.log("loading:", loading);
     return (
         <>
-            {loading ? <Preloader /> : profile ? <Profile profile={profile} userId={userId} status={status} /> : <div>Profile not found</div>}
-            <Profile />
+            {loading ? <Preloader /> : profile 
+            ? <Profile profile={profile} userId={userId} status={status} /> 
+            : <div>Profile not found</div>}
         </>
     );
 }
 
-// export default ProfileContainer
-
 const mapStateToProps = (state) => ({
-    profile: state.profilePage?.profile, // Используйте опциональную цепочку
-    userId: state.auth.userId,
-    status: state.profilePage?.status,
-    loading: state.profilePage?.loading,
+    profile: state.profilePage.profile, // получение профиля
+    status: state.profilePage.status, // статус
+    loading: state.profilePage.loading, // загрузка
 });
 
 // диспатчим юзера в редьюсер
