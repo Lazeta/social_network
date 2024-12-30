@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
-const SET_AUTH_USER_DATA = "SocialNetwork/auth-reducer/SET_AUTH_USER_DATA";
+const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
 
 let initialState = {
   userId: null,
@@ -30,12 +30,17 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 });
 
 export const getAuthUserData = () => async (dispatch) => {
-  return authAPI.me().then(response => {
+  try {
+    const response = await authAPI.me();
+    console.log("Auth API response:", response);
     if (response.data.resultCode === 0) {
-      let { id, email, login } = response.data.data;
+      const { id, email, login } = response.data.data;
       dispatch(setAuthUserData(id, email, login, true));
     }
-  });
+  } catch (error) {
+    console.error("Ошибка при получении данных пользователя:", error);
+    throw error; // Прокидываем ошибку дальше
+  }
 };
 
 export const login = (email, password, rememberMe) => async (dispatch) => {

@@ -26,8 +26,8 @@ const UsersContainer = (props) => {
         <div>
             {props.isFetching && <Preloader />}
             {props.users && <Users
-                totalUsersCount={props.totalUsersCount}
                 users={props.users}
+                totalUsersCount={props.totalUsersCount}
                 pageSize={props.pageSize}
                 currentPage={props.currentPage}
                 setCurrentPage={props.setCurrentPage}
@@ -35,8 +35,7 @@ const UsersContainer = (props) => {
                 subscribe={subscribe}
                 unsubscribe={unsubscribe}
                 followingInProgress={props.followingInProgress}
-            />
-            }
+            />}
         </div>)
 }
 

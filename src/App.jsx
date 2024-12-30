@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { initializedApp } from "./redux/app-reducer";
 import { Route, Routes } from "react-router-dom";
@@ -14,14 +14,21 @@ const MusicContainer = lazy(() => import("./components/Music/MusicContainer"));
 const NewsContainer = lazy(() => import("./components/News/NewsContainer"));
 const SettingsContainer = lazy(() => import("./components/Settings/SettingsContainer"));
 
+const createRoute = (path, Component) => (
+  <Route path={path} element={<Component />} />
+);
+
 const App = () => {
   const dispatch = useDispatch();
   const initialized = useSelector((state) => state.app.initialized);
 
   // 1) added processing error
   useEffect(() => {
-    if(!initialized) {
-      dispatch(initializedApp());
+    if (!initialized) {
+      dispatch(initializedApp()).catch((error) => {
+        console.error("Ошибка инициализации:", error);
+        // Можно установить состояние ошибки для отображения уведомления пользователю
+      });
     }
   }, [dispatch, initialized]);
 
@@ -34,43 +41,17 @@ const App = () => {
       <HeaderContainer />
       <NavbarContainer />
       <div className="app-wrapper-content">
-        <Routes>
-          <Route path="/login" element={
-            <Suspense fallback={<Preloader/>}>
-              <Login />
-            </Suspense>
-          } />
-          <Route path="/profile/:userId" element={
-            <Suspense fallback={<Preloader/>}>
-              <ProfileContainer/>
-            </Suspense>
-          }/> 
-          <Route path="/dialogs" element={
-            <Suspense fallback={<Preloader/>}>
-              <DialogsContainer/>
-            </Suspense>
-          } />
-          <Route path="/users" element={
-            <Suspense fallback={<Preloader/>}>
-              <UsersContainer />
-            </Suspense>
-          } />
-          <Route path="/music" element={
-            <Suspense fallback={<Preloader/>}>
-              <MusicContainer />
-            </Suspense>
-          } />
-          <Route path="/news" element={
-            <Suspense fallback={<Preloader/>}>
-              <NewsContainer />
-            </Suspense>
-          } />
-          <Route path="/settings" element={
-            <Suspense fallback={<Preloader/>}>
-              <SettingsContainer />
-            </Suspense>
-          } />
-        </Routes>
+        <React.Suspense fallback={<Preloader />}>
+          <Routes>
+            {createRoute("/login", Login)}
+            {createRoute("/profile/:userId", ProfileContainer)}
+            {createRoute("/dialogs", DialogsContainer)}
+            {createRoute("/users", UsersContainer)}
+            {createRoute("/music", MusicContainer)}
+            {createRoute("/news", NewsContainer)}
+            {createRoute("/settings", SettingsContainer)}
+          </Routes>
+        </React.Suspense>
       </div>
     </div>
   );
