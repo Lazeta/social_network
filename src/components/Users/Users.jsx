@@ -8,14 +8,18 @@ const Users = (props) => {
             <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} />
             <div>
                 {
-                    props.users.map(u =>
-                        <User
-                            key={u.id} // Проверьте, существует ли свойство `id`
-                            user={u} // Полный объект пользователя
-                            followingInProgress={props.followingInProgress}
-                            subscribe={props.subscribe}
-                            unsubscribe={props.unsubscribe}
-                        />
+                    props.users.map(u => {
+                        if(!u){
+                            return (<div>"User not found"</div>)
+                        }
+                        return <User
+                        key={u.id} // Проверьте, существует ли свойство `id`
+                        user={u} // Полный объект пользователя
+                        followingInProgress={props.followingInProgress}
+                        subscribe={props.subscribe}
+                        unsubscribe={props.unsubscribe}
+                    />
+                    }
                     )
                 }
             </div>

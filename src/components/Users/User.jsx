@@ -11,8 +11,8 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
                     <NavLink to={`/profile/${user.userId}`} >
                         {/* используем фото из ответа или стандартное, если фото пользователя не 
                         загружено и возвращаем фото по умолчанию*/}
-                        <img src={user.photos.small || user.photos.large || userPhoto}
-                            className={s.userPhoto} alt={user.fullName} />
+                        <img src={user.photos.large || user.photos.small || userPhoto}
+                            className={s.userPhoto} alt={user.name} />
                     </NavLink>
                 </div>
                 <div>
@@ -35,14 +35,7 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
                 </span>
                 <span>
                     <div>Contacts:</div>
-                    {/* <div>Github: {user.contacts.github}</div> */}
-                    {/* <div>VK: {user.contacts.vk}</div> */}
-                    {/* <div>Facebook: {user.contacts.facebook}</div> */}
-                    {/* <div>Instagram: {user.contacts.instagram}</div> */}
-                    {/* <div>Twitter: {user.contacts.twitter}</div> */}
-                    {/* <div>Website: {user.contacts.website}</div> */}
-                    {/* <div>YouTube: {user.contacts.youtube}</div> */}
-                    {/* <div>Main Link: {user.contacts.mainLink}</div> */}
+                    
                 </span>
             </span>
         </div>)
