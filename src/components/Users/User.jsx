@@ -30,11 +30,11 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
             <span>
                 <span>
                     <div>{user.fullName}</div>
-                    <div>{user.lookingForAJob ? 'Looking for a job' : 'Not looking for a job'}</div>
-                    <div>{user.lookingForAJobDescription}</div>
+                    {/* <div>{user.lookingForAJob ? 'Looking for a job' : 'Not looking for a job'}</div> */}
+                    {/* <div>{user.lookingForAJobDescription}</div> */}
                 </span>
                 <span>
-                    <div>Contacts:</div>
+                    {/* <div>Contacts:</div>
                     <div>Github: {user.contacts.github}</div>
                     <div>VK: {user.contacts.vk}</div>
                     <div>Facebook: {user.contacts.facebook}</div>
@@ -42,7 +42,7 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
                     <div>Twitter: {user.contacts.twitter}</div>
                     <div>Website: {user.contacts.website}</div>
                     <div>YouTube: {user.contacts.youtube}</div>
-                    <div>Main Link: {user.contacts.mainLink}</div>
+                    <div>Main Link: {user.contacts.mainLink}</div> */}
                 </span>
             </span>
         </div>)

@@ -3,22 +3,24 @@ import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 
 const Users = (props) => {
-    return <div>
-        <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItemsCount={props.totalItemsCount} pageSize={props.pageSize} />
+    return (
         <div>
-            {
-                props.users.map(u =>
-                    <User
-                        key={u.userId}
-                        user={u.userId}
-                        followingInProgress={props.followingInProgress}
-                        subscribe={props.subscribe}
-                        unsubscribe={props.unsubscribe}
-                    />
-                )
-            }
+            <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} />
+            <div>
+                {
+                    props.users.map(u =>
+                        <User
+                            key={u.id} // Проверьте, существует ли свойство `id`
+                            user={u} // Полный объект пользователя
+                            followingInProgress={props.followingInProgress}
+                            subscribe={props.subscribe}
+                            unsubscribe={props.unsubscribe}
+                        />
+                    )
+                }
+            </div>
         </div>
-    </div>
+    );
 }
 
 export default Users
