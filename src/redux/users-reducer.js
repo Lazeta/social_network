@@ -65,23 +65,11 @@ const usersReducer = (state = initialState, action) => {
 export const subscribeSuccess = (userId) => ({ type: SUBSCRIBE, userId });
 export const unsubscribeSuccess = (userId) => ({ type: UNSUBSCRIBE, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setCurrentPage = (currentPage) => ({
-  type: SET_CURRENT_PAGE,
-  currentPage,
-});
-export const setTotalUsersCount = (totalCount) => ({
-  type: SET_TOTAL_USERS_COUNT,
-  totalCount,
-});
-export const toggleIsFetching = (isFetching) => ({
-  type: TOGGLE_IS_FETCHING,
-  isFetching,
-});
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
+export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount});
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleIsFollowingProgress = (isFetching, userId) => ({
-  type: TOGGLE_IS_FOLLOWING_PROGRESS,
-  isFetching,
-  userId,
-});
+  type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
 export const requestUsers = (page, pageSize) => async (dispatch) => {
   dispatch(toggleIsFetching(true));
@@ -97,12 +85,7 @@ export const requestUsers = (page, pageSize) => async (dispatch) => {
   }
 };
 
-const subscribeUnsubscribeFlow = async (
-  dispatch,
-  userId,
-  apiMethod,
-  actionCreator
-) => {
+const subscribeUnsubscribeFlow = async (dispatch, userId, apiMethod, actionCreator) => {
   dispatch(toggleIsFollowingProgress(true, userId));
   let response = await apiMethod(userId);
   if (response.data.resultCode === 0) {
@@ -112,21 +95,11 @@ const subscribeUnsubscribeFlow = async (
 };
 
 export const subscribe = (userId) => async (dispatch) => {
-  subscribeUnsubscribeFlow(
-    dispatch,
-    userId,
-    usersAPI.postUser.bind(usersAPI),
-    subscribeSuccess
-  );
+  subscribeUnsubscribeFlow(dispatch, userId, usersAPI.postUser, subscribeSuccess);
 };
 
 export const unsubscribe = (userId) => async (dispatch) => {
-  subscribeUnsubscribeFlow(
-    dispatch,
-    userId,
-    usersAPI.deleteUser.bind(usersAPI),
-    unsubscribeSuccess
-  );
+  subscribeUnsubscribeFlow(dispatch, userId, usersAPI.deleteUser, unsubscribeSuccess);
 };
 
 export default usersReducer;

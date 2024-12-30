@@ -1,30 +1,18 @@
 import { createSelector } from "reselect";
 
-export const getUsers = (state) => {
-    return state.usersPage.users
-}
+export const getUsers = (state) => state.usersPage.users;
 
-export const getUsersFilter = createSelector(getUsers, (users) => {
-    // дополнительная логика фильтрации пользователей (при необходимости)
-    return users;
-})
+export const getPageSize = (state) => state.usersPage.pageSize;
+export const getCurrentPage = (state) => state.usersPage.currentPage;
 
-export const getPageSize = (state) => {
-    return state.usersPage.pageSize;
-}
+export const getTotalUsersCount = (state) => state.usersPage.totalUsersCount;
+export const getIsFetching = (state) => state.usersPage.isFetching;
+export const getFollowingInProgress = (state) => state.usersPage.followingInProgress;
 
-export const getTotalUsersCount = (state) => {
-    return state.usersPage.totalUsersCount;
-}
-
-export const getCurrentPage = (state) => {
-    return state.usersPage.currentPage;
-}
-
-export const getIsFetching = (state) => {
-    return state.usersPage.isFetching;
-}
-
-export const getFollowingInProgress = (state) => {
-    return state.usersPage.followingInProgress;
-}
+export const getFilteredUsers = createSelector(
+  [getUsers, getCurrentPage, getPageSize],
+  (users, currentPage, pageSize) => {
+      const start = (currentPage - 1) * pageSize;
+      return users.slice(start, start + pageSize);
+  }
+);

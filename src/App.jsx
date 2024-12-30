@@ -22,7 +22,6 @@ const App = () => {
   const dispatch = useDispatch();
   const initialized = useSelector((state) => state.app.initialized);
 
-  // 1) added processing error
   useEffect(() => {
     if (!initialized) {
       dispatch(initializedApp()).catch((error) => {
