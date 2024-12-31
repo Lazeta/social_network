@@ -32,7 +32,7 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 export const getAuthUserData = () => async (dispatch) => {
   try {
     const response = await authAPI.me();
-    console.log("Auth API response:", response);
+    // console.log("Auth API response:", response);
     if (response.data.resultCode === 0) {
       const { id, email, login } = response.data.data;
       dispatch(setAuthUserData(id, email, login, true));
@@ -48,8 +48,7 @@ export const login = (email, password, rememberMe) => async (dispatch) => {
     if (response.data.resultCode === 0) {
       dispatch(getAuthUserData());
     } else {
-      let message =
-        response.data.messages.length > 0
+      let message = response.data.messages.length > 0
           ? response.data.messages[0]
           : "Some error";
       dispatch(stopSubmit("login", { _error: message }));

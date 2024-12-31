@@ -13,7 +13,6 @@ const initialState = {
   loading: false,
   error: null,
   status: null,
-  userId: 31976,
   posts: [
     { id: 1, message: "Hi, how are you?", likesCount: 40 },
     { id: 2, message: "It's my first post", likesCount: 20 },
@@ -53,7 +52,7 @@ const profileReducer = (state = initialState, action) => {
       };
 
     case SET_USER_PROFILE:
-      return { ...state, profile: action.profile };
+      return { ...state, profile: action.payload };
 
     case SET_STATUS:
       return { ...state, status: action.status };
@@ -83,14 +82,14 @@ export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  // console.log("Fetching user profile for userId:", userId); // Логируем userId
+  console.log("Fetching user profile for userId:", userId); // Логируем userId
 
   dispatch({ type: FETCH_PROFILE_REQUEST }); // устанавливаем состояние загрузки
 
   // получаем профиль пользователя из API и передаем его в редьюсер
   try {
     const response = await profileAPI.getProfile(userId); // используем profileAPI и метод getProfile
-    // console.log("User profile response:", response.data); // логируем ответ API
+    console.log("User profile response:", response.data); // логируем ответ API
     dispatch(setUserProfile(response.data));
     dispatch({ type: FETCH_PROFILE_SUCCESS });
   } catch (error) {
@@ -100,10 +99,10 @@ export const getUserProfile = (userId) => async (dispatch) => {
   // получаем статус пользователя
   try {
     const response = await profileAPI.getStatus(userId);
-    // console.log("User status response:", response.data)
+    console.log("User status response:", response.data)
     dispatch(setStatus(response.data));
   } catch (error) {
-    // console.error("Failed to fetch status:", error);
+    console.error("Failed to fetch status:", error);
   }
 
   // обновляем статус
@@ -115,10 +114,8 @@ export const getUserProfile = (userId) => async (dispatch) => {
       dispatch(setStatus(newStatus));
     }
   } catch (error) {
-    // console.error("Failed to update status:", error);
+    console.error("Failed to update status:", error);
   }
-
-
 };
 
 // export default getDefaultProfile = (myProfileId) => async (dispatch) => {
