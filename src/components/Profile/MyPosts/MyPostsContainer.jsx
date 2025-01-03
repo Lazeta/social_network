@@ -1,7 +1,7 @@
 import React from "react";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
-import { addPost } from "../../../redux/profile-reducer";
+import { addPost } from "../../../redux/profileReducer/profile-reducer";
 
 const MyPostsContainer = (props) => {
     return <MyPosts {...props} />

@@ -1,17 +1,17 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
-import usersReducer from "./users-reducer";
-import authReducer from "./auth-reducer";
-import { thunk as thunkMiddleware} from "redux-thunk";
+import profileReducer from "./../redux/profileReducer/profile-reducer";
+import dialogsReducer from "./../redux/dialogsReducer/dialogs-reducer";
+import sidebarReducer from "./../redux/sidebarReducer/sidebar-reducer";
+import usersReducer from "./../redux/usersReducer/users-reducer";
+import authReducer from "./../redux/authReducer/auth-reducer";
+import { thunk } from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
-import appReducer from "./app-reducer";
-import newsReducer from "./news-reducer";
-import musicReducer from "./music-reducer";
-import settingsReducer from "./settings-reducer";
+import appReducer from "./../redux/appReducer/app-reducer";
+import newsReducer from "./../redux/newsReducer/news-reducer";
+import musicReducer from "./../redux/musicReducer/music-reducer";
+import settingsReducer from "./../redux/settingsReducer/settings-reducer";
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
@@ -25,9 +25,7 @@ let reducers = combineReducers({
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
-    applyMiddleware(thunkMiddleware))
-  );
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 window.store = store;
 
 export default store;

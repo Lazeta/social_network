@@ -1,5 +1,5 @@
-import { usersAPI } from "../api/api";
-import { updateObjectToArray } from "../utils/object-helpers";
+import { usersAPI } from "../../api/api";
+import { updateObjectToArray } from "../../utils/object-helpers";
 
 const SUBSCRIBE = "SUBSCRIBE";
 const UNSUBSCRIBE = "UNSUBSCRIBE";
@@ -12,7 +12,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 let initialState = {
   users: [],
   pageSize: 10,
-  totalUsersCount: null,
+  totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,
   followingInProgress: [],

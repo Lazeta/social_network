@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 const ProfileStatusWithHooks = ({ status, updateStatus}) => {
-    let [editMode, setEditMode] = useState(true);
+    let [editMode, setEditMode] = useState(false);
     let [statusState, setStatusState] = useState(status);
 
     // useEffect сделает то же самое что и componentDidMount в классовом компоненте

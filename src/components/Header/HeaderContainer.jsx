@@ -1,6 +1,6 @@
 import Header from './Header';
 import React, { useEffect } from 'react';
-import { getAuthUserData, logout } from '../../redux/auth-reducer';
+import { getAuthUserData, logout } from '../../redux/authReducer/auth-reducer';
 import { connect } from 'react-redux';
 
 const HeaderContainer = ({getAuthUserData, ...props}) => {

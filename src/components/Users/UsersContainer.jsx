@@ -5,14 +5,14 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUsers,
-} from '../../redux/users-selectors';
+} from '../../utils/users-selectors';
 import {
     subscribe,
     unsubscribe,
     requestUsers,
     setCurrentPage,
     toggleIsFollowingProgress,
-} from '../../redux/users-reducer';
+} from '../../redux/usersReducer/users-reducer';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';

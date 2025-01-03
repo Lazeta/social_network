@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Preloader from "./components/common/Preloader/Preloader";
+import NotFound from "./utils/NotFound";
 const Login = lazy(() => import("./components/Login/Login"));
 const ProfileContainer = lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer"));
@@ -20,7 +21,7 @@ const createRoute = (path, Component) => (
 
 const App = () => {
   const dispatch = useDispatch();
-  const initialized = useSelector((state) => state.app.initialized);
+  const initialized = useSelector(state => state.app.initialized); // используем хук useSelector для доступа к состоянию Redux
 
   useEffect(() => {
     if (!initialized) {
@@ -43,12 +44,13 @@ const App = () => {
         <React.Suspense fallback={<Preloader />}>
           <Routes>
             {createRoute("/login", Login)}
-            {createRoute("/profile/:userId", ProfileContainer)}
+            {createRoute("/profile/:userId?", ProfileContainer)}
             {createRoute("/dialogs", DialogsContainer)}
             {createRoute("/users", UsersContainer)}
             {createRoute("/music", MusicContainer)}
             {createRoute("/news", NewsContainer)}
             {createRoute("/settings", SettingsContainer)}
+            {createRoute("*", NotFound)}
           </Routes>
         </React.Suspense>
       </div>

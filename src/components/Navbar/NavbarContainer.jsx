@@ -4,12 +4,14 @@ import s from './Navbar.module.css';
 import Navbar from './Navbar';
 
 const NavbarContainer = () => {
+
+
     let navigatorData = [
-        {id: 0, navigate: '/profile', title: 'Profile'},
+        {id: 0, navigate: `/profile`, title: 'Profile'},
         {id: 1, navigate: '/dialogs', title: 'Messages'},
         {id: 2, navigate: '/news', title: 'News'},
         {id: 3, navigate: '/music', title: 'Music'},
-        {id: 4, navigate: '/users', title: 'Users'},
+        {id: 4, navigate: `/users`, title: 'Users'},
         {id: 5, navigate: '/settings', title: 'Settings'},
     ]
 

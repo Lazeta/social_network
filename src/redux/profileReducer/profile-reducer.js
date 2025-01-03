@@ -1,4 +1,4 @@
-import { profileAPI } from "../api/api";
+import { profileAPI } from "../../api/api";
 
 const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -82,9 +82,8 @@ export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  console.log("Fetching user profile for userId:", userId); // Логируем userId
-
   dispatch({ type: FETCH_PROFILE_REQUEST }); // устанавливаем состояние загрузки
+  // console.log("Fetching user profile for userId:", userId); // Логируем userId
 
   // получаем профиль пользователя из API и передаем его в редьюсер
   try {
@@ -104,11 +103,10 @@ export const getUserProfile = (userId) => async (dispatch) => {
   } catch (error) {
     console.error("Failed to fetch status:", error);
   }
+};
 
-  // обновляем статус
-  // передайте актуальный статус вместо пустого вызова функции
+export const updateStatus = (newStatus) => async (dispatch) => {
   try {
-    const newStatus = "New status";
     const response = await profileAPI.updateStatus(newStatus);
     if (response.data.resultCode === 0) {
       dispatch(setStatus(newStatus));
