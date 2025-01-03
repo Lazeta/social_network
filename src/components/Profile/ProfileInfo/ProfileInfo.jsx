@@ -9,9 +9,9 @@ const ProfileInfo = (props) => {
     return (
         <div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large || props.profile.photos.small || userPhoto}  alt="my avatar"/>
+                <img src={props.profile.photos.small || userPhoto}  alt="my avatar"/>
 
-                {/* <ProfileStatus status={props.status} updateStatus={props.updateStatus}/> */}
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     )

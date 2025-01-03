@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { lazy, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { initializedApp } from "./redux/app-reducer";
+import { initializedApp } from "./redux/appReducer/app-reducer";
 import { Route, Routes } from "react-router-dom";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";

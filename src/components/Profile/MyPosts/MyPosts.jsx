@@ -8,7 +8,7 @@ import AddNewPostForm from "./AddNewPostForm/AddNewPostForm";
 // обновленный список постов из состояния и отображает их.
 const MyPosts = memo((props) => {
     let postsElements = props.posts.map(p => {
-        return <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount} />
+        return <Post key={p} id={p.id} message={p.message} likesCount={p.likesCount} />
     });
 
     // 1.3

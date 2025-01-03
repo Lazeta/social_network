@@ -75,7 +75,7 @@ const profileReducer = (state = initialState, action) => {
 // В редьюсер profileReducer, в зависимости от типа действия, проверяется, есть ли текст поста
 // и если есть, то он добавляется в массив posts, а если нет, то ничего не происходит
 export const addPost = (newPostText) => {
-  // console.log("Adding post:", newPostText);
+  console.log("Adding post:", newPostText);
   return { type: ADD_POST, newPostText }}
 export const deletePost = (postId) => ({ type: DELETE_POST, postId });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
@@ -84,21 +84,22 @@ export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const getUserProfile = (userId) => async (dispatch) => {
   dispatch({ type: FETCH_PROFILE_REQUEST }); // устанавливаем состояние загрузки
   // console.log("Fetching user profile for userId:", userId); // Логируем userId
-
   // получаем профиль пользователя из API и передаем его в редьюсер
   try {
     const response = await profileAPI.getProfile(userId); // используем profileAPI и метод getProfile
-    console.log("User profile response:", response.data); // логируем ответ API
+    // console.log("User profile response:", response.data); // логируем ответ API
+    // console.log("User profile response:", response); // логируем ответ API
     dispatch(setUserProfile(response.data));
-    dispatch({ type: FETCH_PROFILE_SUCCESS });
   } catch (error) {
     dispatch({ type: FETCH_PROFILE_FAILURE, payload: error.message });
+  } finally {
+    dispatch({ type: FETCH_PROFILE_SUCCESS });
   }
 
   // получаем статус пользователя
   try {
     const response = await profileAPI.getStatus(userId);
-    console.log("User status response:", response.data)
+    // console.log("User status response:", response.data)
     dispatch(setStatus(response.data));
   } catch (error) {
     console.error("Failed to fetch status:", error);
@@ -115,14 +116,5 @@ export const updateStatus = (newStatus) => async (dispatch) => {
     console.error("Failed to update status:", error);
   }
 };
-
-// export default getDefaultProfile = (myProfileId) => async (dispatch) => {
-//   try {
-//     const response = await profileAPI.getDefaultProfile(myProfileId);
-//     dispatch(setUserProfile(response.data))
-//   } catch (error) {
-//     console.error("Failed to fetch default profile:", error);
-//   }
-// }
 
 export default profileReducer;

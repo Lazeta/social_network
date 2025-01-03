@@ -1,29 +1,27 @@
 import React, { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Profile from "./Profile";
 import { compose } from "redux";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import Preloader from "../common/Preloader/Preloader";
-import { getUserProfile, updateStatus } from "../../redux/profileReducer/profile-reducer";
+import { getUserProfile } from "../../redux/profileReducer/profile-reducer";
 
-const ProfileContainer = ({ profile, status, loading, getUserProfile }) => {
-    
-    const userId = useSelector(state => state.profilePage.userId || {});
-    const error = useSelector(state => state.profilePage || {});
+const ProfileContainer = (props) => {
+    const { profile, status, loading, error, userId } = props;
     const dispatch = useDispatch();
-    console.log("Profile props:", { profile, userId, status, updateStatus, loading });
 
+    // console.log("Profile props:", { profile, userId, status, loading });
     useEffect(() => {
         // console.log("Current URL:", window.location.href);
         // console.log("useEffect triggered with userId:", userId);
         if (userId) { // проверка на существование userId
             dispatch(getUserProfile(userId)); // 2.1 вызываем диспатч для получения профиля
-            console.log("Profile data after dispatch:", profile);
+            // console.log("Profile data after dispatch:", profile);
         }
-    }, [userId ,getUserProfile, dispatch, profile]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
+    }, [dispatch, userId]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
 
     if (loading) {
-        return <Preloader/>
+        return <Preloader />
     }
     if (error) {
         return <div>Error: {error}</div>
@@ -32,25 +30,22 @@ const ProfileContainer = ({ profile, status, loading, getUserProfile }) => {
         return <div>Profile not found</div>
     }
 
-    // console.log("loading:", loading);
     return (
-        <>
-    {/* отображение профиля и статус пользователя если загрузка завершена и профиль существует */}
-            {loading ? <Preloader /> : profile 
-            ? 
-            <Profile profile={profile} userId={userId} status={status} /> : null}
-        </>
+        <Profile profile={profile} userId={userId} status={status} />
     );
 }
 
 const mapStateToProps = (state) => {
     // console.log("Profile State:", state.profilePage);
+    // console.log("Auth State:", state.auth);
 
     return {
         profile: state.profilePage.profile, // получение профиля
         status: state.profilePage.status, // статус
         loading: state.profilePage.loading, // загрузка
-    } 
+        error: state.profilePage.error, // ошибка
+        // userId: state.auth.userId // получение userId
+    }
 };
 
 // диспатчим юзера в редьюсер

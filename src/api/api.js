@@ -27,7 +27,15 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    getProfile: (userId) => Instance.get(`profile/${userId}`),
+    getProfile: async (userId) => {
+        try {
+            const response = await Instance.get(`profile/${userId}`);
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+            throw error;
+        }
+    },
     getStatus: (userId) => Instance.get(`profile/status/${userId}`),
     updateStatus: (status) => Instance.put(`profile/status`, {status})
 }
