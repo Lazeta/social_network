@@ -16,3 +16,10 @@ export const getFilteredUsers = createSelector(
       return users.slice(start, start + pageSize);
   }
 );
+
+export const getProfile = (state) => state.profilePage;
+export const getUserId = (state) => state.auth.userId;
+export const getProfileStatus = (state) => state.profilePage.status;
+export const getLoading = (state) => state.profilePage.loading;
+export const getError = (state) => state.profilePage.error;
+export const getIsAuth = (state) => state.auth.isAuth;

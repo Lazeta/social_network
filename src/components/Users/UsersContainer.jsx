@@ -27,11 +27,6 @@ const UsersContainer = (props) => {
         requestUsers(currentPage, pageSize); // Добавим dispatch
     }, [currentPage, pageSize, requestUsers]); // Не забудьте добавить requestUsers как зависимость
 
-    // console.log('Users in UsersContainer:', props.users);
-    // console.log('Total Users Count in UsersContainer:', props.totalUsersCount);
-    // console.log('Is Fetching in UsersContainer:', props.isFetching);
-    // console.log('Following In Progress in UsersContainer:', props.followingInProgress);
-
     const onPageChanged = (pageNumber) => {
         props.requestUsers(pageNumber, props.pageSize);
     };

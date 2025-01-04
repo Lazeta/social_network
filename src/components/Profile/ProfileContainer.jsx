@@ -5,46 +5,47 @@ import { compose } from "redux";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import Preloader from "../common/Preloader/Preloader";
 import { getUserProfile } from "../../redux/profileReducer/profile-reducer";
+import { getError, getLoading, getProfile, getProfileStatus, getUserId } from "../../utils/users-selectors";
 
 const ProfileContainer = (props) => {
-    const { profile, status, loading, error, userId } = props;
     const dispatch = useDispatch();
-
-    // console.log("Profile props:", { profile, userId, status, loading });
     useEffect(() => {
         // console.log("Current URL:", window.location.href);
         // console.log("useEffect triggered with userId:", userId);
-        if (userId) { // проверка на существование userId
-            dispatch(getUserProfile(userId)); // 2.1 вызываем диспатч для получения профиля
-            // console.log("Profile data after dispatch:", profile);
+        if (props.userId) { // проверка на существование userId
+            dispatch(getUserProfile(props.userId)); // 2.1 вызываем диспатч для получения профиля
         }
-    }, [dispatch, userId]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
+    }, [dispatch, props.userId]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
 
-    if (loading) {
+    if (props.loading) {
         return <Preloader />
     }
-    if (error) {
-        return <div>Error: {error}</div>
+    if (props.error) {
+        return <div>Error: {props.error}</div>
     }
-    if (!profile) {
+    if (!props.profile) {
         return <div>Profile not found</div>
     }
 
+    
+
     return (
-        <Profile profile={profile} userId={userId} status={status} />
+        <Profile profile={props.profile} userId={props.userId} status={props.status} error={props.error} loading={props.loading}/>
     );
 }
 
 const mapStateToProps = (state) => {
-    // console.log("Profile State:", state.profilePage);
-    // console.log("Auth State:", state.auth);
+    // console.log("ProfilePage State 0:", state.profilePage);
+    // console.log("Auth State 1:", state.auth);
+    // console.log("UsersPage State 3:", state.usersPage);
+
 
     return {
-        profile: state.profilePage.profile, // получение профиля
-        status: state.profilePage.status, // статус
-        loading: state.profilePage.loading, // загрузка
-        error: state.profilePage.error, // ошибка
-        // userId: state.auth.userId // получение userId
+        profile: getProfile(state), // получение профиля
+        status: getProfileStatus(state), // статус
+        loading: getLoading(state), // загрузка
+        error: getError(state), // ошибка
+        userId: getUserId(state) // получение userId
     }
 };
 

@@ -10,9 +10,9 @@ const FETCH_PROFILE_FAILURE = 'FETCH_PROFILE_FAILURE';
 
 const initialState = {
   profile: null,
-  loading: false,
-  error: null,
-  status: null,
+  status: '',
+  // loading: false,
+  // error: null,
   posts: [
     { id: 1, message: "Hi, how are you?", likesCount: 40 },
     { id: 2, message: "It's my first post", likesCount: 20 },
@@ -29,7 +29,7 @@ const profileReducer = (state = initialState, action) => {
     case FETCH_PROFILE_REQUEST:
       return { ...state, loading: true, error: null };
     case FETCH_PROFILE_SUCCESS:
-      return { ...state, loading: false, profile: action.payload };
+      return { ...state, loading: false, };
     case FETCH_PROFILE_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
@@ -55,7 +55,7 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, profile: action.payload };
 
     case SET_STATUS:
-      return { ...state, status: action.status };
+      return { ...state, status: action.payload };
 
     case DELETE_POST:
       return {
@@ -82,27 +82,19 @@ export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  dispatch({ type: FETCH_PROFILE_REQUEST }); // устанавливаем состояние загрузки
-  // console.log("Fetching user profile for userId:", userId); // Логируем userId
-  // получаем профиль пользователя из API и передаем его в редьюсер
+  dispatch({ type: FETCH_PROFILE_REQUEST });
+  
   try {
-    const response = await profileAPI.getProfile(userId); // используем profileAPI и метод getProfile
-    // console.log("User profile response:", response.data); // логируем ответ API
-    // console.log("User profile response:", response); // логируем ответ API
-    dispatch(setUserProfile(response.data));
+    const response = await profileAPI.getProfile(userId);
+    // Убедимся, что ответ содержит необходимые данные
+    dispatch(setUserProfile(response)); // Предположим, что setUserProfile правильно обрабатывает данные
+
+    const statusResponse = await profileAPI.getStatus(userId);
+    dispatch(setStatus(statusResponse)); // Предположим, что setStatus правильно обрабатывает статус
+
+    dispatch({ type: FETCH_PROFILE_SUCCESS }); // Вызываем финально только если всё прошло успешно
   } catch (error) {
     dispatch({ type: FETCH_PROFILE_FAILURE, payload: error.message });
-  } finally {
-    dispatch({ type: FETCH_PROFILE_SUCCESS });
-  }
-
-  // получаем статус пользователя
-  try {
-    const response = await profileAPI.getStatus(userId);
-    // console.log("User status response:", response.data)
-    dispatch(setStatus(response.data));
-  } catch (error) {
-    console.error("Failed to fetch status:", error);
   }
 };
 
