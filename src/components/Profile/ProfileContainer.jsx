@@ -30,7 +30,14 @@ const ProfileContainer = (props) => {
     
 
     return (
-        <Profile profile={props.profile} userId={props.userId} status={props.status} error={props.error} loading={props.loading}/>
+        <Profile 
+        profile={props.profile} 
+        userId={props.userId} 
+        status={props.status} 
+        error={props.error} 
+        loading={props.loading} 
+        // updateStatus={props.updateStatus}
+        />
     );
 }
 
@@ -42,10 +49,10 @@ const mapStateToProps = (state) => {
 
     return {
         profile: getProfile(state), // получение профиля
+        userId: getUserId(state), // получение userId
         status: getProfileStatus(state), // статус
         loading: getLoading(state), // загрузка
         error: getError(state), // ошибка
-        userId: getUserId(state) // получение userId
     }
 };
 

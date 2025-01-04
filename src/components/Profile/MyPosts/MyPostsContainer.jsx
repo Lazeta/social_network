@@ -10,7 +10,7 @@ const MyPostsContainer = (props) => {
 const mapStateToProps = ({ profilePage }) => {
     return {
         posts: profilePage.posts,
-        newPostText: profilePage.newPostText
+        // newPostText: profilePage.newPostText
     }
 }
 

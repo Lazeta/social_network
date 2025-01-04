@@ -4,12 +4,13 @@ import ProfileStatus from "./ProfileStatus";
 import userPhoto from '../../../assets/images/profile-logo.png';
 
 const ProfileInfo = (props) => {
+    const smallPhoto = props.profile.photos
 
-    console.log(props.profile);
+    // console.log(smallPhoto);
     return (
         <div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.small || userPhoto}  alt="my avatar"/>
+                <img src={smallPhoto || userPhoto} alt="my avatar"/>
 
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
