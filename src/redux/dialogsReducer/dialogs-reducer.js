@@ -25,13 +25,16 @@ let initialState = {
         {id: 5, message: 'Understand'},
         {id: 6, message: 'Lorem ipsum lorem'},
     ],
+    // newMessageBody: '',
 }
 
 const dialogsReducer = (state = initialState, action) => {
     switch(action.type) {
         case SEND_MESSAGE: {
             let body = action.newMessageBody;
-            let maxId = state.messages.length > 0 ? Math.max(...state.messages.map(m => m.id)) : 0;
+            let maxId = state.messages.length > 0 
+                ? Math.max(...state.messages.map(m => m.id)) : 0;
+
             let newId = maxId + 1;
             return {
                 ...state, 
@@ -44,6 +47,8 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const newMessageBody = (body) => ({ type: SEND_MESSAGE, body })
+export const newMessageBody = (body) => ({ type: SEND_MESSAGE, newMessageBody: body })
+
+export const sendMessage = () => ({ type: SEND_MESSAGE })
 
 export default dialogsReducer;
