@@ -45,8 +45,6 @@ const mapStateToProps = (state) => {
     // console.log("ProfilePage State 0:", state.profilePage);
     // console.log("Auth State 1:", state.auth);
     // console.log("UsersPage State 3:", state.usersPage);
-
-
     return {
         profile: getProfile(state), // получение профиля
         userId: getUserId(state), // получение userId
