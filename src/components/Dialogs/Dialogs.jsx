@@ -21,7 +21,7 @@ let Dialogs = (props) => {
                 {messagesElements}
 
             </div>
-            <AddMessageForm onSubmit={addNewMessage}/>
+            {/* <AddMessageForm onSubmit={addNewMessage}/> */}
         </div>
     </div>)
 }

@@ -5,9 +5,18 @@ export const getLoading = (state) => state.profilePage.loading;
 export const getIsFetching = (state) => state.usersPage.isFetching;
 export const getError = (state) => state.profilePage.error;
 
+// dialogs
+export const getDialogs = (state) => state.dialogsPage.dialogs;
+export const getMessages = (state) => state.dialogsPage.messages;
+
 // profile
 export const getProfile = (state) => state.profilePage;
 export const getProfileStatus = (state) => state.profilePage.status;
+
+// page users
+export const getPageSize = (state) => state.usersPage.pageSize;
+export const getCurrentPage = (state) => state.usersPage.currentPage;
+
 
 // users
 export const getUsers = (state) => state.usersPage.users;
@@ -22,11 +31,3 @@ export const getFilteredUsers = createSelector(
     return users.slice(start, start + pageSize);
   }
 );
-
-// page users
-export const getPageSize = (state) => state.usersPage.pageSize;
-export const getCurrentPage = (state) => state.usersPage.currentPage;
-
-// dialogs
-export const getDialogs = (state) => state.dialogsPage.dialogs;
-export const getMessages = (state) => state.dialogsPage.messages;
