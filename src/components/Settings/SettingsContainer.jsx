@@ -5,8 +5,7 @@ import { Navigate } from "react-router-dom";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 
 const SettingsContainer = ({ isAuth }) => {
-    !isAuth ? <Navigate to='/login' /> : <Settings />
-    return <Settings />
+    return isAuth ? <Settings/> : <Navigate to='/login' />
 }
 
 const mapStateToProps = (state) => ({

@@ -25,7 +25,7 @@ let initialState = {
         {id: 5, message: 'Understand'},
         {id: 6, message: 'Lorem ipsum lorem'},
     ],
-    // newMessageBody: '',
+    newMessageBody: '',
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -48,7 +48,5 @@ const dialogsReducer = (state = initialState, action) => {
 }
 
 export const newMessageBody = (body) => ({ type: SEND_MESSAGE, newMessageBody: body })
-
-export const sendMessage = () => ({ type: SEND_MESSAGE })
 
 export default dialogsReducer;

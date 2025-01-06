@@ -1,0 +1,9 @@
+.formSummaryError {
+    border: solid red 1px;
+    padding: 5px;
+    color: rosybrown;
+}
+
+.loginButton {
+    margin-top: 10px;
+}

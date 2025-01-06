@@ -1,32 +1,36 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { maxLengthCreator, required } from "../../../utils/validators";
-import { Textarea } from "../../common/FormsControls/FormControls";
-import { useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-const maxLength50 = maxLengthCreator(50);
-
-const AddMessageForm = (props) => {
-    useEffect(() => {
-        // Place your data fetching or side effects code here
-        // This will run after each render
-    }, [/* dependencies */]);
+const AddMessageForm = ({ onSubmit }) => {
+    const validationSchema = Yup.object().shape({
+        newMessageBody: Yup.string()
+            .required('Required')
+            .max(50, 'Must be 50 characters or less'),
+    });
 
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field 
-                    component={Textarea} 
-                    name="newMessageBody"
-                    placeholder="Enter your message" 
-                    validate={[required, maxLength50]}
-                />
-            </div>
-            <div>
-                <button type="submit">Send</button>
-            </div>
-        </form>
+        <Formik
+            initialValues={{ newMessageBody: '' }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { resetForm }) => {
+                onSubmit(values); 
+                resetForm();
+            }}
+        >
+            {() => (
+                <Form>
+                    <div>
+                        <Field name="newMessageBody" as="textarea" placeholder="Enter your message" />
+                        <ErrorMessage name="newMessageBody" component="div" style={{ color: 'red' }} />
+                    </div>
+                    <div>
+                        <button type="submit">Send</button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     );
-}
+};
 
-export default reduxForm({ form: 'dialog-add-message-form'})(AddMessageForm);
+export default AddMessageForm;

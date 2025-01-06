@@ -14,14 +14,14 @@ import settingsReducer from "./../redux/settingsReducer/settings-reducer";
 let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer,
     app: appReducer,
     newsPage: newsReducer,
     musicPage: musicReducer,
     settingsPage: settingsReducer,
+    sidebar: sidebarReducer,
+    form: formReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
