@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SocialNetwork/dialogs-reducer/SEND_MESSAGE';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 let initialState = {
     dialogs: [
@@ -25,13 +25,14 @@ let initialState = {
         {id: 5, message: 'Understand'},
         {id: 6, message: 'Lorem ipsum lorem'},
     ],
-    newMessageBody: '',
 }
 
+// 1 // 3
 const dialogsReducer = (state = initialState, action) => {
     switch(action.type) {
         case SEND_MESSAGE: {
             let body = action.newMessageBody;
+            // 4
             let maxId = state.messages.length > 0 
                 ? Math.max(...state.messages.map(m => m.id)) : 0;
 
@@ -47,6 +48,17 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const newMessageBody = (body) => ({ type: SEND_MESSAGE, newMessageBody: body })
+// 2
+export const addMessage = (newMessage) => {
+    // console.log("Adding post:", newMessage);
+    return { type: SEND_MESSAGE, newMessageBody: newMessage }
+} 
 
 export default dialogsReducer;
+
+// 1 Редьюсер обрабатывает обновления состояния на основе действий, которые ему отправляются.
+// 2 Когда вызывается функция addMessage, она возвращает объект действия с типом SEND_MESSAGE 
+//   и содержимым нового сообщения
+// 3 В редьюсере функция dialogsReducer проверяет тип действия: если это SEND_MESSAGE, она берет 
+//   текст нового сообщения и обновляет состояние, добавляя новое сообщение в массив сообщений.
+// 4 получаем максимальное значение id из массива сообщений и используем его для генерации нового id

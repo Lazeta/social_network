@@ -6,19 +6,11 @@ const AddNewPostForm = ({ onSubmit }) => {
     const validationSchema = Yup.object().shape({
         newPostText: Yup.string()
             .required('Required')
-            .max(30, 'Must be 30 characters or less'),
+            .max(50, 'Must be 50 characters or less'),
     });
 
     return (
-        // 1.1
-        // Formik обрабатывает отправку формы и вызывает метод onSubmit, передавая в него
-        // значения формы и объект, содержащий методы управления формой.
-        // функция onSubmit принимает параметры values (содержащий введенный текст поста) и
-        // объект с методами, включая resetForm.
-        // on Submit вызывает функцию onAddPost приходящий из пропса MyPosts компонента передавая
-        // значения формы, то есть объект с полем newPostText.
-        // 1.9
-        // вызывается resetForm, что очищает форму, возвращая его начальное значение (пустая строка).
+        // 1.1 // 1.9
         <Formik
             initialValues={{ newPostText: '' }}
             validationScheme={validationSchema}
@@ -43,3 +35,14 @@ const AddNewPostForm = ({ onSubmit }) => {
 };
 
 export default AddNewPostForm;
+
+// 1.1
+// Formik обрабатывает отправку формы и вызывает метод onSubmit, передавая в него
+// значения формы и объект, содержащий методы управления формой.
+// функция onSubmit принимает параметры values (содержащий введенный текст поста) и
+// объект с методами, включая resetForm.
+// on Submit вызывает функцию onAddPost приходящий из пропса MyPosts компонента передавая
+// значения формы, то есть объект с полем newPostText.
+
+// 1.9
+// вызывается resetForm, что очищает форму, возвращая его начальное значение (пустая строка).
