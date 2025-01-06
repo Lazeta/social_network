@@ -1,7 +1,8 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 const NotFound = () => {
-    return <div>404</div>;
+    return <Navigate to="/profile" />;
 };
 
 export default NotFound;
