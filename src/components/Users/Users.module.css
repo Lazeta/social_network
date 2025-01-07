@@ -1,4 +1,32 @@
+.user {
+    display: grid;
+    grid-template-columns: 1fr 7.5fr;
+}
+
+.userPhotoWrapper {
+    padding: 5px 0 5px 10px;
+}
+
 .userPhoto {
     width: 100px;
     height: 100px;
+}
+
+.userContacts {
+    padding: 0;
+}
+
+.userName {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.userFollow {
+    padding: 0;
+}
+
+.userMainInfo {
+    padding: 5px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
 }

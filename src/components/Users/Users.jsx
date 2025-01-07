@@ -2,23 +2,29 @@ import React from "react";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 
-const Users = (props) => {
+const Users = ({ currentPage, onPageChanged, totalUsersCount, 
+    pageSize, users, followingInProgress, subscribe, unsubscribe 
+}) => {
     return (
         <div>
-            <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} />
+            <Paginator
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}
+                totalItemsCount={totalUsersCount}
+                pageSize={pageSize} />
             <div>
                 {
-                    props.users.map(u => {
-                        if(!u){
+                    users.map(u => {
+                        if (!u) {
                             return (<div>"User not found"</div>)
                         }
                         return <User
-                        key={u.id} // Проверьте, существует ли свойство `id`
-                        user={u} // Полный объект пользователя
-                        followingInProgress={props.followingInProgress}
-                        subscribe={props.subscribe}
-                        unsubscribe={props.unsubscribe}
-                    />
+                            key={u.id}
+                            user={u} // Полный объект пользователя
+                            followingInProgress={followingInProgress}
+                            subscribe={subscribe}
+                            unsubscribe={unsubscribe}
+                        />
                     })
                 }
             </div>

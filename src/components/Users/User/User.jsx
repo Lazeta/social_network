@@ -5,19 +5,24 @@ import { NavLink } from "react-router-dom";
 
 const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
     return (
-        <div>
+        <div className={s.user}>
             <span>
-                <div>
+                <div className={s.userPhotoWrapper}>
                     <NavLink to={`/profile/${user.id}`} >
-                        {/* используем фото из ответа или стандартное, если фото пользователя не 
-                        загружено и возвращаем фото по умолчанию*/}
+                        {/* 4 */}
                         <img src={user.photos.large || user.photos.small || userPhoto}
                             className={s.userPhoto} alt={user.name} />
                     </NavLink>
                 </div>
-                <div>
+            </span>
+            <span className={s.userMainInfo}>
+                <div className={s.userName}>
+                    {/* 1 */}
+                    <div>{user.name}</div>
+                </div>
+                <div className={s.userFollow}>
                     {user.followed
-                    // у user есть только id никакого userId не добавлять
+                    // 3
                         ? <button disabled={followingInProgress.some(id => id === user.id)}
                             onClick={() => { unsubscribe(user.id) }}>
                             Unsubscribe
@@ -28,19 +33,18 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
                         </button>
                     }
                 </div>
-            </span>
-            <span>
-                <span>
-                    {/* отображаем имя пользователя */}
-                    <div>{user.name}</div>
-                    {/* {console.log(user)} */}
-                </span>
-                <span>
-                    <div>Contacts:</div>
-                    {/* опционально отображаем контакты пользователя если их можно получить через api */}
-                </span>
+                <div className={s.userContacts}>
+                    <div>Contacts: </div>
+                    {/* 2 */}
+                </div>
             </span>
         </div>)
 }
 
-export default User
+export default User;
+
+// 1 отображаем имя пользователя
+// 2 опционально отображаем контакты пользователя
+// 3 у user есть только id никакого userId не добавлять
+// 4 используем фото из ответа или стандартное, если фото пользователя не 
+//   загружено и возвращаем фото по умолчанию
