@@ -5,7 +5,7 @@ const ProfileStatusWithHooks = ({ status, updateStatus}) => {
     let [editMode, setEditMode] = useState(false);
     let [statusState, setStatusState] = useState(status);
 
-    // useEffect сделает то же самое что и componentDidMount в классовом компоненте
+    // 2
     useEffect( () => {
         setStatusState(statusState);
     }, [statusState]) // [] в зависимостях - срабатывает при первом рендере
@@ -15,7 +15,8 @@ const ProfileStatusWithHooks = ({ status, updateStatus}) => {
     }
     const deactivateEditMode = () => {
         setEditMode(false);
-        updateStatus(statusState);
+        // 1
+        updateStatus(statusState); 
     }
 
     const onStatusChange = (e) => {
@@ -38,3 +39,7 @@ const ProfileStatusWithHooks = ({ status, updateStatus}) => {
 }
 
 export default ProfileStatusWithHooks;
+
+// 1 Ну да, статус же не функция, а мы ему значение передаём, нужно добавить 
+//   возможность принимать значение в функции и обновлять статус
+// 2 useEffect сделает то же самое что и componentDidMount в классовом компоненте

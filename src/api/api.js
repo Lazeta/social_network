@@ -36,6 +36,21 @@ export const profileAPI = {
             throw error;
         }
     },
-    getStatus: (userId) => Instance.get(`profile/status/${userId}`),
-    updateStatus: (status) => Instance.put(`profile/status`, {status})
+    getStatus: async (userId) => {
+        try {
+            const response = await Instance.get(`profile/status/${userId}`);
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching status:", error);
+            throw error;
+        }
+    },
+    updateStatus: async (status) => {
+        try {
+            const response = await Instance.put(`profile/status`, {status})
+            return response.data
+        } catch (error) {
+            console.error("Error updating status:", error)
+        }
+    },
 }

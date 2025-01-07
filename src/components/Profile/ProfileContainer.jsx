@@ -36,15 +36,13 @@ const ProfileContainer = (props) => {
         status={props.status} 
         error={props.error} 
         loading={props.loading} 
-        // updateStatus={props.updateStatus}
+        updateStatus={props.updateStatus}
         />
     );
 }
 
 const mapStateToProps = (state) => {
-    // console.log("ProfilePage State 0:", state.profilePage);
-    // console.log("Auth State 1:", state.auth);
-    // console.log("UsersPage State 3:", state.usersPage);
+    // 1
     return {
         profile: getProfile(state), // получение профиля
         userId: getUserId(state), // получение userId
@@ -59,3 +57,5 @@ export default compose(
     connect(mapStateToProps, { getUserProfile }),
     withAuthRedirect,
 )(ProfileContainer)
+
+// 1 маппинг пропсов состояния из редьюсера к пропсам компонента Profile используя объекты из юзер селекторов

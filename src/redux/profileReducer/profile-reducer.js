@@ -1,16 +1,16 @@
 import { profileAPI } from "../../api/api";
 
+const FETCH_PROFILE_REQUEST = 'FETCH_PROFILE_REQUEST';
+const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
+const FETCH_PROFILE_FAILURE = 'FETCH_PROFILE_FAILURE';
 const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
-const FETCH_PROFILE_REQUEST = 'FETCH_PROFILE_REQUEST';
-const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
-const FETCH_PROFILE_FAILURE = 'FETCH_PROFILE_FAILURE';
 
 const initialState = {
   profile: null,
-  status: '',
+  status: 'New status',
   loading: false,
   error: null,
   posts: [
@@ -48,10 +48,10 @@ const profileReducer = (state = initialState, action) => {
       };
 
     case SET_USER_PROFILE:
-      return { ...state, profile: action.payload };
+      return { ...state, profile: action.profile };
 
     case SET_STATUS:
-      return { ...state, status: action.payload };
+      return { ...state, status: action.status };
 
     case DELETE_POST:
       return {
@@ -66,7 +66,7 @@ const profileReducer = (state = initialState, action) => {
 
 // 1.4 // 1.7
 export const addPost = (newPostText) => {
-  console.log("Adding post:", newPostText);
+  // console.log("Adding post:", newPostText);
   return { type: ADD_POST, newPostText }}
 export const deletePost = (postId) => ({ type: DELETE_POST, postId });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
@@ -74,12 +74,10 @@ export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getUserProfile = (userId) => async (dispatch) => {
   dispatch({ type: FETCH_PROFILE_REQUEST });
-  
   try {
     const response = await profileAPI.getProfile(userId);
     // Убедимся, что ответ содержит необходимые данные
     dispatch(setUserProfile(response)); // Предположим, что setUserProfile правильно обрабатывает данные
-
     const statusResponse = await profileAPI.getStatus(userId);
     dispatch(setStatus(statusResponse)); // Предположим, что setStatus правильно обрабатывает статус
 
@@ -90,13 +88,18 @@ export const getUserProfile = (userId) => async (dispatch) => {
 };
 
 export const updateStatus = (newStatus) => async (dispatch) => {
+  dispatch({ type: FETCH_PROFILE_REQUEST});
   try {
     const response = await profileAPI.updateStatus(newStatus);
     if (response.data.resultCode === 0) {
       dispatch(setStatus(newStatus));
+      dispatch({ type: FETCH_PROFILE_SUCCESS });
+    } else {
+      dispatch({ type: FETCH_PROFILE_FAILURE, payload: response.data.messages[0] });
     }
   } catch (error) {
     console.error("Failed to update status:", error);
+    dispatch({ type: FETCH_PROFILE_FAILURE, payload: error.message });
   }
 };
 

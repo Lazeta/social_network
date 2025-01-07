@@ -1,4 +1,13 @@
-import profileReducer, { addPost, deletePost } from "./profile-reducer";
+import profileReducer, {
+  addPost,
+  deletePost,
+  setUserProfile,
+  setStatus,
+  getUserProfile,
+  FETCH_PROFILE_REQUEST,
+  FETCH_PROFILE_SUCCESS,
+  FETCH_PROFILE_FAILURE,
+} from './profile-reducer';
 
 const initialState = {
   profile: null,
@@ -16,35 +25,75 @@ const initialState = {
   newPostText: "",
 };
 
-jest.mock("../../api/api", () => ({
-  profileAPI: {
-      getProfile: jest.fn(), // spies on the getProfile method
-      getStatus: jest.fn(), // spies on the getStatus method
-      updateStatus: jest.fn(), // spies on the updateStatus method
-  },
-}));
+// jest.mock("../../api/api", () => ({
+//   profileAPI: {
+//       getProfile: jest.fn(), // spies on the getProfile method
+//       getStatus: jest.fn(), // spies on the getStatus method
+//       updateStatus: jest.fn(), // spies on the updateStatus method
+//   },
+// }));
 
+describe('profileReducer test', () => {
+  it('should handle ADD_POST with valid text', () => {
+    const action = addPost('New Post');
+    const newState = profileReducer(initialState, action);
 
-it("new post should be added", () => {
-  let action = addPost("it-kamasutra.com");
-  let newState = profileReducer(initialState, action);
-  expect(newState.posts.length).toBe(7);
-});
+    expect(newState.posts.length).toBe(7);
+    expect(newState.posts[6].message).toBe('New Post');
+    expect(newState.posts[6].likesCount).toBe(0); // likesCount starts at 0
+  });
 
-it("message of new post should be correct", () => {
-  let action = addPost("it-kamasutra.com");
-  let newState = profileReducer(initialState, action);
-  expect(newState.posts[6].message).toBe("it-kamasutra.com");
-});
+  it('should not add post when text is empty', () => {
+    const action = addPost('');
+    const newState = profileReducer(initialState, action);
 
-it("after deleting length of messages should be decremented", () => {
-  let action = deletePost(1);
-  let newState = profileReducer(initialState, action);
-  expect(newState.posts.length).toBe(5);
-});
+    expect(newState.posts.length).toBe(6); // No new post should be added
+  });
 
-it("after deleting length should not be decremented if id is incorrect", () => {
-  let action = deletePost(1000);
-  let newState = profileReducer(initialState, action);
-  expect(newState.posts.length).toBe(6);
+  it('should handle DELETE_POST', () => {
+    const action = deletePost(1);
+    const state = { ...initialState }; // Make a copy of the initial state
+    const newState = profileReducer(state, action);
+
+    expect(newState.posts.length).toBe(5);
+    expect(newState.posts.find(p => p.id === 1)).toBeUndefined(); // Post with id 1 should be removed
+  });
+
+  it('should handle SET_USER_PROFILE', () => {
+    const action = setUserProfile({ name: 'John', age: 30 });
+    const newState = profileReducer(initialState, action);
+
+    expect(newState.profile).toEqual({ name: 'John', age: 30 });
+  });
+
+  it('should handle SET_STATUS', () => {
+    const action = setStatus('New Status');
+    const newState = profileReducer(initialState, action);
+
+    expect(newState.status).toBe('New Status');
+  });
+
+  it('should handle FETCH_PROFILE_REQUEST', () => {
+    const action = { type: FETCH_PROFILE_REQUEST };
+    const newState = profileReducer(initialState, action);
+
+    expect(newState.loading).toBe(true);
+    expect(newState.error).toBe(null);
+  });
+
+  it('should handle FETCH_PROFILE_SUCCESS', () => {
+    const action = { type: FETCH_PROFILE_SUCCESS };
+    const initialStateWithLoading = { ...initialState, loading: true };
+    const newState = profileReducer(initialStateWithLoading, action);
+
+    expect(newState.loading).toBe(false);
+  });
+
+  it('should handle FETCH_PROFILE_FAILURE', () => {
+    const action = { type: FETCH_PROFILE_FAILURE, payload: 'Error message' };
+    const newState = profileReducer(initialState, action);
+
+    expect(newState.loading).toBe(false);
+    expect(newState.error).toBe('Error message');
+  });
 });
