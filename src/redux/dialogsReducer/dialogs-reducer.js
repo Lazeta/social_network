@@ -1,4 +1,5 @@
 const SEND_MESSAGE = 'SEND_MESSAGE';
+const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 let initialState = {
     dialogs: [
@@ -31,7 +32,10 @@ let initialState = {
 const dialogsReducer = (state = initialState, action) => {
     switch(action.type) {
         case SEND_MESSAGE: {
-            let body = action.newMessageBody;
+            let body = action.newMessageBody.trim();
+            if (body === "") {
+                return state;
+            }
             // 4
             let maxId = state.messages.length > 0 
                 ? Math.max(...state.messages.map(m => m.id)) : 0;
@@ -42,6 +46,11 @@ const dialogsReducer = (state = initialState, action) => {
                 messages: [...state.messages, {id: newId, message: body}], 
             }
         } 
+        case DELETE_MESSAGE: {
+            return {
+                ...state,
+            }
+        }
         default: {
             return state;
         }
@@ -52,7 +61,9 @@ const dialogsReducer = (state = initialState, action) => {
 export const addMessage = (newMessage) => {
     // console.log("Adding post:", newMessage);
     return { type: SEND_MESSAGE, newMessageBody: newMessage }
-} 
+}
+
+// add deleteMessage
 
 export default dialogsReducer;
 

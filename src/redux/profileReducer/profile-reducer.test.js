@@ -1,13 +1,5 @@
 import profileReducer, { addPost, deletePost } from "./profile-reducer";
 
-jest.mock("../../api/api", () => ({
-  profileAPI: {
-      getProfile: jest.fn(), // spies on the getProfile method
-      getStatus: jest.fn(), // spies on the getStatus method
-      updateStatus: jest.fn(), // spies on the updateStatus method
-  },
-}));
-
 const initialState = {
   profile: null,
   status: '',
@@ -23,6 +15,15 @@ const initialState = {
   ],
   newPostText: "",
 };
+
+jest.mock("../../api/api", () => ({
+  profileAPI: {
+      getProfile: jest.fn(), // spies on the getProfile method
+      getStatus: jest.fn(), // spies on the getStatus method
+      updateStatus: jest.fn(), // spies on the updateStatus method
+  },
+}));
+
 
 it("new post should be added", () => {
   let action = addPost("it-kamasutra.com");
