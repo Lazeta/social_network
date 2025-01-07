@@ -7,10 +7,10 @@ import withAuthRedirect from "../hoc/withAuthRedirect";
 import { getDialogs, getMessages } from "../../utils/users-selectors";
 
 // 4
-const DialogsContainer = (props) => {
+const DialogsContainer = ({dialogs, messages, addMessage}) => {
     // 3
     return (
-        <Dialogs dialogs={props.dialogs} messages={props.messages} addMessage={props.addMessage} />
+        <Dialogs dialogs={dialogs} messages={messages} addMessage={addMessage} />
     )
 }
 

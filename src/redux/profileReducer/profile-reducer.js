@@ -11,8 +11,8 @@ const FETCH_PROFILE_FAILURE = 'FETCH_PROFILE_FAILURE';
 const initialState = {
   profile: null,
   status: '',
-  // loading: false,
-  // error: null,
+  loading: false,
+  error: null,
   posts: [
     { id: 1, message: "Hi, how are you?", likesCount: 40 },
     { id: 2, message: "It's my first post", likesCount: 20 },
@@ -33,11 +33,7 @@ const profileReducer = (state = initialState, action) => {
     case FETCH_PROFILE_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
-    // 1.6
-    // в редьюсере добавляется новое поле newPostText.
-    // это поле хранит текст нового поста который вводит пользователь
-    // в поле ввода в компоненте AddNewPostForm
-    // 
+    // 1.6 
     case ADD_POST:
       if(!action.newPostText.trim()) return state
       const newPostId = state.posts.length > 0 ? Math.max(...state.posts.map((p) => p.id)) + 1 : 1;
@@ -68,12 +64,7 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-// 1.4
-// в addPost создается экшен ADD_POST который включает текст нового поста.
-// этот экшен передается в редьюсер с помощью диспатча который вызывает функцию
-// 1.7
-// В редьюсер profileReducer, в зависимости от типа действия, проверяется, есть ли текст поста
-// и если есть, то он добавляется в массив posts, а если нет, то ничего не происходит
+// 1.4 // 1.7
 export const addPost = (newPostText) => {
   console.log("Adding post:", newPostText);
   return { type: ADD_POST, newPostText }}
@@ -110,3 +101,11 @@ export const updateStatus = (newStatus) => async (dispatch) => {
 };
 
 export default profileReducer;
+
+// 1.4 В addPost создается экшен ADD_POST который включает текст нового поста.
+//     этот экшен передается в редьюсер с помощью диспатча который вызывает функцию
+// 1.6 В редьюсере добавляется новое поле newPostText.
+//     это поле хранит текст нового поста который вводит пользователь
+//     в поле ввода в компоненте AddNewPostForm
+// 1.7 В редьюсер profileReducer, в зависимости от типа действия, проверяется, есть ли текст поста
+//     и если есть, то он добавляется в массив posts, а если нет, то ничего не происходит
