@@ -2,8 +2,8 @@ import React from "react";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 
-const Users = ({ currentPage, onPageChanged, totalUsersCount, 
-    pageSize, users, followingInProgress, subscribe, unsubscribe 
+const Users = ({ currentPage, onPageChanged, totalUsersCount,
+    pageSize, users, followingInProgress, subscribe, unsubscribe
 }) => {
     return (
         <div>
@@ -18,13 +18,15 @@ const Users = ({ currentPage, onPageChanged, totalUsersCount,
                         if (!u) {
                             return (<div>"User not found"</div>)
                         }
-                        return <User
-                            key={u.id}
-                            user={u} // Полный объект пользователя
-                            followingInProgress={followingInProgress}
-                            subscribe={subscribe}
-                            unsubscribe={unsubscribe}
-                        />
+                        return (
+                            <User
+                                key={u.id}
+                                user={u} // Полный объект пользователя
+                                followingInProgress={followingInProgress}
+                                subscribe={subscribe}
+                                unsubscribe={unsubscribe}
+                            />
+                        )
                     })
                 }
             </div>
