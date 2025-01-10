@@ -1,10 +1,12 @@
 import React from "react";
 import s from './../Users.module.css';
-import userPhoto from '../../../assets/images/profile-logo.png';
+import userPhotoEmpty from '../../../assets/images/profile-logo.png';
 import { NavLink } from "react-router-dom";
 import HorizontalLine from "../../common/Line/HorizontalLine";
 
 const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
+    const userPhoto = user && user.photos && user.photos.large ? user.photos.large : user.photos.small
+    
     return (
         <>  <HorizontalLine />
             <div className={s.user}>
@@ -12,7 +14,7 @@ const User = ({ user, followingInProgress, subscribe, unsubscribe }) => {
                     <div className={s.userPhotoWrapper}>
                         <NavLink to={`/profile/${user.id}`} >
                             {/* 4 */}
-                            <img src={user.photos.large || user.photos.small || userPhoto}
+                            <img src={userPhoto || userPhotoEmpty}
                                 className={s.userPhoto} alt={user.name} />
                         </NavLink>
                     </div>

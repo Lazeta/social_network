@@ -6,8 +6,8 @@ import AddNewPostForm from "./AddNewPostForm/AddNewPostForm";
 // 1.8
 // после того как состояние обновлено, React перерисовывает компонент, который получает 
 // обновленный список постов из состояния и отображает их.
-const MyPosts = memo((props) => {
-    let postsElements = props.posts.map(p => {
+const MyPosts = memo(({addPost, posts}) => {
+    let postsElements = posts.map(p => {
         return <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount} />
     });
 
@@ -17,8 +17,7 @@ const MyPosts = memo((props) => {
     let onAddPost = (values) => {
         // console.log("Submitted values:", values);
         if (values.newPostText) {
-            props.addPost(values.newPostText);
-            // console.log("Post added");
+            addPost(values.newPostText);
         }
     }
 

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import Profile from "./Profile";
 import { compose } from "redux";
 import withAuthRedirect from "../hoc/withAuthRedirect";
@@ -7,37 +7,21 @@ import Preloader from "../common/Preloader/Preloader";
 import { getUserProfile } from "../../redux/profileReducer/profile-reducer";
 import { getError, getLoading, getProfile, getProfileStatus, getUserId } from "../../utils/users-selectors";
 
-const ProfileContainer = (props) => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        // console.log("Current URL:", window.location.href);
-        // console.log("useEffect triggered with userId:", userId);
-        if (props.userId) { // проверка на существование userId
-            dispatch(getUserProfile(props.userId)); // 2.1 вызываем диспатч для получения профиля
-        }
-    }, [dispatch, props.userId]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect
-
-    if (props.loading) {
-        return <Preloader />
-    }
-    if (props.error) {
-        return <div>Error: {props.error}</div>
-    }
-    if (!props.profile) {
-        return <div>Profile not found</div>
-    }
-
-    
-
+const ProfileContainer = ({ userId, profile, status, updateStatus, loading, error, isFetching }) => {
     return (
-        <Profile 
-        profile={props.profile} 
-        userId={props.userId} 
-        status={props.status} 
-        error={props.error} 
-        loading={props.loading} 
-        updateStatus={props.updateStatus}
-        />
+        <div>
+            {isFetching && <Preloader />}
+            {error && <div>Error: {error}</div>}
+            {!profile && <div>Profile not found</div>}
+            {profile && <Profile
+                profile={profile}
+                userId={userId}
+                status={status}
+                error={error}
+                loading={loading}
+                updateStatus={updateStatus}
+            />}
+        </div>
     );
 }
 
@@ -59,3 +43,13 @@ export default compose(
 )(ProfileContainer)
 
 // 1 маппинг пропсов состояния из редьюсера к пропсам компонента Profile используя объекты из юзер селекторов
+
+
+   // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     // console.log("Current URL:", window.location.href);
+    //     // console.log("useEffect triggered with userId:", userId);
+    //     if (userId) { // проверка на существование userId
+    //         dispatch(getUserProfile(userId)); // 2.1 вызываем диспатч для получения профиля
+    //     }
+    // }, [dispatch, userId]); // 2.2 добавляем userId и getUserProfile в зависимости от которого будет запускатся useEffect

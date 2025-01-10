@@ -1,14 +1,16 @@
 .paginator {
-    border: 1px solid black;
     padding: 10px;
     margin: 10px auto;
-    width: min-content;
+    width: auto;
+    /* overflow: auto; Добавляем overflow: auto для контроля прокрутки */
+    display: flex;
+    align-items: center;
 }
 .pageNumber {
     cursor: pointer;
     border: 1px solid black;
     border-radius: 5px;
-    padding: 3px 6px 3px 6px;
+    padding: 3px 6px;
     margin: 0 5px;
 }
 .pageNumber.selectedPage {
@@ -17,13 +19,15 @@
 }
 
 .buttonWrapper {
-    margin-top: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 175px;
+    padding: 0px 5px;
 }
 
 .buttonNext, .buttonPrevious  {
     padding: 3px;
     cursor: pointer;
+}
+
+.fakeButton {
+    padding: 3px;
+    visibility: hidden;
 }

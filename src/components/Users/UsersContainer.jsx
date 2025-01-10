@@ -20,30 +20,31 @@ import Preloader from '../common/Preloader/Preloader';
 import withAuthRedirect from '../hoc/withAuthRedirect';
 import Users from './Users';
 
-const UsersContainer = (props) => {
-    const { requestUsers, currentPage, pageSize } = props;
-
+const UsersContainer = ({
+    pageSize, isFetching, requestUsers, currentPage, users, totalUsersCount, 
+    setCurrentPage, subscribe, unsubscribe, followingInProgress
+}) => {
     useEffect(() => {
         requestUsers(currentPage, pageSize); // Добавим dispatch
     }, [currentPage, pageSize, requestUsers]); // Не забудьте добавить requestUsers как зависимость
 
     const onPageChanged = (pageNumber) => {
-        props.requestUsers(pageNumber, props.pageSize);
+        requestUsers(pageNumber, pageSize);
     };
 
     return (
         <div>
-            {props.isFetching && <Preloader />}
-            {props.users && <Users
-                users={props.users}
-                totalUsersCount={props.totalUsersCount}
-                pageSize={props.pageSize}
-                currentPage={props.currentPage}
-                setCurrentPage={props.setCurrentPage}
+            {isFetching && <Preloader />}
+            {users && <Users
+                users={users}
+                totalUsersCount={totalUsersCount}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
                 onPageChanged={onPageChanged}
-                subscribe={props.subscribe}
-                unsubscribe={props.unsubscribe}
-                followingInProgress={props.followingInProgress}
+                subscribe={subscribe}
+                unsubscribe={unsubscribe}
+                followingInProgress={followingInProgress}
             />}
         </div>
     );
